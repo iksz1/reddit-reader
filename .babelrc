@@ -1,0 +1,23 @@
+{
+  "presets": [
+    ["@babel/env", { "targets": { "chrome": 55 }, "useBuiltIns": false, "modules": false }],
+    "@babel/react",
+    "@babel/typescript"
+  ],
+  "plugins": [
+    ["@babel/plugin-proposal-class-properties", { "loose": false }],
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "helpers": false,
+        "regenerator": false
+      }
+    ],
+    "react-hot-loader/babel"
+  ],
+  "env": {
+    "test": {
+      "presets": ["@babel/env"]
+    }
+  }
+}
