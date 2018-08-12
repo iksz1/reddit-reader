@@ -3,7 +3,7 @@ import { hot } from "react-hot-loader";
 import { Router } from "@reach/router";
 import styled from "styled-components";
 import Subreddit from "../Subreddit";
-import Nav from "../Nav/Nav";
+import Header from "../Header";
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,14 +14,7 @@ const Wrapper = styled.div`
   min-height: 100vh;
   background: ${p => p.theme.bg};
   color: ${p => p.theme.primary};
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 10rem;
-  border-bottom: ${p => p.theme.border};
+  overflow-x: hidden;
 `;
 
 const MainSection = styled.div`
@@ -46,9 +39,7 @@ const Footer = styled.div`
 
 const App = () => (
   <Wrapper>
-    <Header>
-      <Nav />
-    </Header>
+    <Header />
     <MainSection>
       <MainContent>
         <Router>

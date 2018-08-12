@@ -21,4 +21,5 @@ export const fetchMiddleware: Middleware = state => next => action => {
       .then(json => onSuccess(parser(json).posts))
       .catch(error => console.error(error.message)); // tslint:disable-line
   }
+  return next(action);
 };

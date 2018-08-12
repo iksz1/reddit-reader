@@ -5,7 +5,7 @@ export default (state = [], { type, payload }: any) => {
     case types.SUBS_LOAD:
       return payload;
     case types.SUBS_ADD:
-      return [...state].push(payload as never);
+      return state.concat(payload);
     case types.SUBS_REMOVE:
       return state.filter(sub => sub !== payload);
     default:

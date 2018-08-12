@@ -58,9 +58,7 @@ const flatComments = (comments: IResource[]) => {
 };
 
 const getReplies = (comment: IComment) => {
-  if (!comment.replies) {
-    return [];
-  }
+  if (!comment.replies) return [];
 
   let replies: IComment[] = [];
   const { children }: IListing = comment.replies.data;

@@ -47,7 +47,7 @@ const SLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 6;
+  z-index: 10;
   min-width: 3em;
   min-height: 3em;
   color: inherit;
@@ -75,7 +75,7 @@ class Nav extends Component<IProps> {
         <List>
           {subs.map(sub => (
             <li key={sub}>
-              <SLink to={`/r/${sub}`} active={activeSub === sub ? true : undefined}>
+              <SLink to={`/r/${sub}`} active={activeSub === sub ? 1 : undefined}>
                 {sub[0]}
               </SLink>
             </li>

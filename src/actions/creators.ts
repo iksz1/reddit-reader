@@ -5,6 +5,16 @@ export const loadSubs = (subs: string[]) => ({
   payload: subs,
 });
 
+export const addSub = (sub: string) => ({
+  type: types.SUBS_ADD,
+  payload: sub,
+});
+
+export const removeSub = (sub: string) => ({
+  type: types.SUBS_REMOVE,
+  payload: sub,
+});
+
 export const subscribe = (subreddit: string) => ({
   types: types.SUBS_ADD,
   payload: subreddit,

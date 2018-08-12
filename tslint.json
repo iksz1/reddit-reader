@@ -19,6 +19,7 @@
     "member-access": false,
     "object-literal-sort-keys": false,
     "jsx-no-multiline-js": false,
-    "semicolon": [true, "always", "ignore-bound-class-methods"]
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
+    "curly": false
   }
 }
