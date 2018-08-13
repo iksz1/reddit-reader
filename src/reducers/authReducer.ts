@@ -1,6 +1,8 @@
+import { Reducer } from "redux";
 import types from "../actions/types";
+import { IAuth } from "../actions/creators";
 
-export default (state = {}, { type, payload }: any) => {
+const authReducer: Reducer<IAuth> = (state = {}, { type, payload }) => {
   switch (type) {
     case types.AUTH_SET:
       return { ...state, ...payload };
@@ -10,3 +12,5 @@ export default (state = {}, { type, payload }: any) => {
       return state;
   }
 };
+
+export default authReducer;

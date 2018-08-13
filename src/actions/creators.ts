@@ -1,47 +1,75 @@
+import { Action, ActionCreator } from "redux";
 import types from "./types";
 
-export const loadSubs = (subs: string[]) => ({
+// subs
+
+interface ILoadSubsAction extends Action {
+  type: types.SUBS_LOAD;
+  payload: string[];
+}
+
+export const loadSubs: ActionCreator<ILoadSubsAction> = (subs: string[]) => ({
   type: types.SUBS_LOAD,
   payload: subs,
 });
 
-export const addSub = (sub: string) => ({
+interface IAddSubAction extends Action {
+  type: types.SUBS_ADD;
+  payload: string;
+}
+
+export const addSub: ActionCreator<IAddSubAction> = (sub: string) => ({
   type: types.SUBS_ADD,
   payload: sub,
 });
 
-export const removeSub = (sub: string) => ({
+interface IRemoveSubAction extends Action {
+  type: types.SUBS_REMOVE;
+  payload: string;
+}
+
+export const removeSub: ActionCreator<IRemoveSubAction> = (sub: string) => ({
   type: types.SUBS_REMOVE,
   payload: sub,
 });
 
-export const subscribe = (subreddit: string) => ({
-  types: types.SUBS_ADD,
-  payload: subreddit,
-});
+// auth
 
-export const unsubscribe = (subreddit: string) => ({
-  type: types.SUBS_REMOVE,
-  payload: subreddit,
-});
+export interface IAuth {
+  access_token?: string;
+}
 
-export const setAuth = (auth: any) => ({
+interface ISetAuthAction extends Action {
+  type: types.AUTH_SET;
+  payload: IAuth;
+}
+
+export const setAuth: ActionCreator<ISetAuthAction> = (auth: IAuth) => ({
   type: types.AUTH_SET,
   payload: auth,
 });
 
+// view
+
 export interface IView {
-  type: string;
-  id: string;
+  type?: string;
+  id?: string;
   data?: any;
   isLoading?: boolean;
   error?: string | null;
 }
 
-export const setView = (view: IView) => ({
+interface ISetViewAction extends Action {
+  type: types.VIEW_SET;
+  payload: IView;
+}
+
+export const setView: ActionCreator<ISetViewAction> = (view: IView) => ({
   type: types.VIEW_SET,
   payload: view,
 });
+
+// fetch
 
 export interface IReq {
   type: string;
@@ -49,7 +77,12 @@ export interface IReq {
   onSuccess: (data: any) => void;
 }
 
-export const fetchData = (req: IReq) => ({
+interface IFetchDataAction extends Action {
+  type: types.FETCH;
+  payload: IReq;
+}
+
+export const fetchData: ActionCreator<IFetchDataAction> = (req: IReq) => ({
   type: types.FETCH,
   payload: req,
 });
