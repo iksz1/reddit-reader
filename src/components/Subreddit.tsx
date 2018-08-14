@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import parser, { IPost } from "../utils/responseParser";
+import { IPost } from "../utils/responseParser";
 import Post from "./Post";
-import { fetchData, IReq } from "../actions/creators";
+import { fetchData } from "../actions/creators";
 
 interface IState {
   posts: IPost[];
@@ -10,7 +10,8 @@ interface IState {
 
 interface IProps {
   subreddit: string;
-  fetchReq: (req: IReq) => void;
+  uri: string;
+  apiRequest: typeof fetchData;
 }
 
 class Subreddit extends Component<IProps, IState> {
@@ -30,11 +31,10 @@ class Subreddit extends Component<IProps, IState> {
   }
 
   loadData = () => {
-    const { subreddit, fetchReq } = this.props;
-    fetchReq({
-      type: "subreddit",
-      id: subreddit,
-      onSuccess: posts => this.setState({ posts }),
+    const { uri, apiRequest } = this.props;
+    apiRequest({
+      uri,
+      onSuccess: data => this.setState({ posts: data.posts }),
     });
   };
 
@@ -58,7 +58,7 @@ class Subreddit extends Component<IProps, IState> {
 // })
 
 const mapDispatchToProps = {
-  fetchReq: fetchData,
+  apiRequest: fetchData,
 };
 
 export default connect(

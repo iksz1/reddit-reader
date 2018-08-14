@@ -1,34 +1,33 @@
-import { Action, ActionCreator } from "redux";
+import { Action } from "redux";
 import types from "./types";
 
 // subs
 
+export type Subs = string[];
+
 interface ILoadSubsAction extends Action {
-  type: types.SUBS_LOAD;
-  payload: string[];
+  payload: Subs;
 }
 
-export const loadSubs: ActionCreator<ILoadSubsAction> = (subs: string[]) => ({
+export const loadSubs = (subs: Subs): ILoadSubsAction => ({
   type: types.SUBS_LOAD,
   payload: subs,
 });
 
 interface IAddSubAction extends Action {
-  type: types.SUBS_ADD;
   payload: string;
 }
 
-export const addSub: ActionCreator<IAddSubAction> = (sub: string) => ({
+export const addSub = (sub: string): IAddSubAction => ({
   type: types.SUBS_ADD,
   payload: sub,
 });
 
 interface IRemoveSubAction extends Action {
-  type: types.SUBS_REMOVE;
   payload: string;
 }
 
-export const removeSub: ActionCreator<IRemoveSubAction> = (sub: string) => ({
+export const removeSub = (sub: string): IRemoveSubAction => ({
   type: types.SUBS_REMOVE,
   payload: sub,
 });
@@ -40,49 +39,31 @@ export interface IAuth {
 }
 
 interface ISetAuthAction extends Action {
-  type: types.AUTH_SET;
   payload: IAuth;
 }
 
-export const setAuth: ActionCreator<ISetAuthAction> = (auth: IAuth) => ({
+export const setAuth = (auth: IAuth): ISetAuthAction => ({
   type: types.AUTH_SET,
   payload: auth,
 });
 
-// view
-
-export interface IView {
-  type?: string;
-  id?: string;
-  data?: any;
-  isLoading?: boolean;
-  error?: string | null;
-}
-
-interface ISetViewAction extends Action {
-  type: types.VIEW_SET;
-  payload: IView;
-}
-
-export const setView: ActionCreator<ISetViewAction> = (view: IView) => ({
-  type: types.VIEW_SET,
-  payload: view,
-});
-
 // fetch
 
-export interface IReq {
-  type: string;
-  id: string;
+export interface IRequest {
+  uri: string;
   onSuccess: (data: any) => void;
 }
 
 interface IFetchDataAction extends Action {
-  type: types.FETCH;
-  payload: IReq;
+  payload: IRequest;
 }
 
-export const fetchData: ActionCreator<IFetchDataAction> = (req: IReq) => ({
+export const fetchData = (request: IRequest): IFetchDataAction => ({
   type: types.FETCH,
-  payload: req,
+  payload: request,
 });
+
+// export const fetchData: ActionCreator<IFetchDataAction> = (request: IRequest) => ({
+//   type: types.FETCH,
+//   payload: request,
+// });

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "@reach/router";
 import styled from "styled-components";
-import { loadSubs } from "../../actions/creators";
+import { IAppState } from "../../reducers/rootReducer";
 
 const Wrapper = styled.nav`
   position: relative;
@@ -52,30 +52,32 @@ const SLink = styled(Link)`
   min-height: 3em;
   color: inherit;
   text-decoration: none;
-  border: ${(p: any) => (p.active ? p.theme.borderAlt : p.theme.border)};
+  /* border: ${(p: any) => (p.active ? p.theme.borderAlt : p.theme.border)}; */
+  border: ${p => p.theme.border};
   border-radius: 50%;
   &:hover {
     border: ${p => p.theme.borderAlt};
-    /* transition: border 300ms; */
-    /* transform: scale(1.1); */
   }
 `;
 
+const isActive = ({ isCurrent }: any) => {
+  return isCurrent ? { style: { border: "8px solid tan" } } : null;
+};
+
 interface IProps {
   subs: string[];
-  activeSub: string | null;
 }
 
 class Nav extends Component<IProps> {
   render() {
-    const { subs, activeSub } = this.props;
+    const { subs } = this.props;
 
     return (
       <Wrapper>
         <List>
           {subs.map(sub => (
             <li key={sub}>
-              <SLink to={`/r/${sub}`} active={activeSub === sub ? 1 : undefined}>
+              <SLink to={`/r/${sub}`} getProps={isActive}>
                 {sub[0]}
               </SLink>
             </li>
@@ -86,16 +88,8 @@ class Nav extends Component<IProps> {
   }
 }
 
-const mapStateToProps = ({ subs, view }: any) => ({
+const mapStateToProps = ({ subs }: IAppState) => ({
   subs,
-  activeSub: view.type === "subreddit" ? view.id : null,
 });
 
-const mapDispatchToProps = {
-  loadSubs,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Nav);
+export default connect(mapStateToProps)(Nav);

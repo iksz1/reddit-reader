@@ -1,15 +1,15 @@
 import types from "../actions/types";
-import { setView } from "../actions/creators";
 import { Middleware } from "redux";
 import parser from "../utils/responseParser";
+import { IRequest } from "../actions/creators";
+
+const BASE_URL = `https://www.reddit.com`;
+const BASE_PARAMS = `.json?raw_json=1`;
 
 export const fetchMiddleware: Middleware = state => next => action => {
   if (action.type === types.FETCH) {
-    const { type, id, onSuccess } = action.payload;
-
-    next(setView({ type, id }));
-
-    const url = `https://www.reddit.com/r/${id}.json?raw_json=1`;
+    const { uri, onSuccess }: IRequest = action.payload;
+    const url = BASE_URL + uri + BASE_PARAMS;
 
     fetch(url)
       .then(response => {
@@ -18,7 +18,7 @@ export const fetchMiddleware: Middleware = state => next => action => {
         }
         throw new Error(response.statusText);
       })
-      .then(json => onSuccess(parser(json).posts))
+      .then(json => onSuccess(parser(json)))
       .catch(error => console.error(error.message)); // tslint:disable-line
   }
   return next(action);
