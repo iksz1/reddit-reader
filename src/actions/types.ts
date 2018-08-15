@@ -11,8 +11,8 @@ enum actionTypes {
   SUBS_REMOVE,
   AUTH_SET,
   AUTH_CLEAR,
-  VIEW_SET,
   FETCH,
+  CACHE_SET,
 }
 
 export default actionTypes;

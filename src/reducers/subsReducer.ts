@@ -1,7 +1,8 @@
 import { Reducer } from "redux";
 import types from "../actions/types";
+import { Subs } from "../actions/creators";
 
-const subsReducer: Reducer<string[]> = (state = [], { type, payload }) => {
+const subsReducer: Reducer<Subs> = (state = [], { type, payload }) => {
   switch (type) {
     case types.SUBS_LOAD:
       return payload;

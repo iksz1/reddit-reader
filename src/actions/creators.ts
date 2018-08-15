@@ -67,3 +67,18 @@ export const fetchData = (request: IRequest): IFetchDataAction => ({
 //   type: types.FETCH,
 //   payload: request,
 // });
+
+// cache
+
+export interface ICacheItem {
+  key: string;
+  data: any;
+  expires: number;
+}
+
+export type Cache = ICacheItem[];
+
+export const setCache = (key: string, data: any) => ({
+  type: types.CACHE_SET,
+  payload: { key, data },
+});
