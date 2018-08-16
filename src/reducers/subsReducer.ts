@@ -1,6 +1,7 @@
 import { Reducer } from "redux";
 import types from "../actions/types";
-import { Subs } from "../actions/creators";
+
+export type Subs = string[];
 
 const subsReducer: Reducer<Subs> = (state = [], { type, payload }) => {
   switch (type) {

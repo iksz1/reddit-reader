@@ -1,19 +1,16 @@
 import { combineReducers } from "redux";
-import auth from "./authReducer";
-import subs from "./subsReducer";
-import cache from "./cacheReducer";
-import { IAuth, Subs, Cache } from "../actions/creators";
+import auth, { IAuth } from "./authReducer";
+import subs, { Subs } from "./subsReducer";
+import data, { IData } from "./dataReducer";
+import cache, { Cache } from "./cacheReducer";
 
 export interface IAppState {
   auth: IAuth;
   subs: Subs;
+  data: IData;
   cache: Cache;
 }
 
-const reducer = combineReducers<IAppState>({
-  auth,
-  subs,
-  cache,
-});
+const reducer = combineReducers<IAppState>({ auth, subs, data, cache });
 
 export default reducer;

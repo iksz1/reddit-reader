@@ -1,9 +1,9 @@
 import { Action } from "redux";
 import types from "./types";
+import { Subs } from "../reducers/subsReducer";
+import { IAuth } from "../reducers/authReducer";
 
 // subs
-
-export type Subs = string[];
 
 interface ILoadSubsAction extends Action {
   payload: Subs;
@@ -34,10 +34,6 @@ export const removeSub = (sub: string): IRemoveSubAction => ({
 
 // auth
 
-export interface IAuth {
-  access_token?: string;
-}
-
 interface ISetAuthAction extends Action {
   payload: IAuth;
 }
@@ -49,36 +45,47 @@ export const setAuth = (auth: IAuth): ISetAuthAction => ({
 
 // fetch
 
-export interface IRequest {
+export interface IFetchRequest {
   uri: string;
-  onSuccess: (data: any) => void;
 }
 
-interface IFetchDataAction extends Action {
-  payload: IRequest;
+interface IFetchRequestAction extends Action {
+  payload: IFetchRequest;
 }
 
-export const fetchData = (request: IRequest): IFetchDataAction => ({
-  type: types.FETCH,
+export const fetchRequest = (request: IFetchRequest): IFetchRequestAction => ({
+  type: types.FETCH_REQUEST,
   payload: request,
 });
 
-// export const fetchData: ActionCreator<IFetchDataAction> = (request: IRequest) => ({
-//   type: types.FETCH,
-//   payload: request,
-// });
+interface IFetchSuccessAction extends Action {
+  payload: any;
+}
+
+export const fetchSuccess = (data: any): IFetchSuccessAction => ({
+  type: types.FETCH_SUCCESS,
+  payload: data,
+});
+
+interface IFetchFailureAction extends Action {
+  payload: Error;
+}
+
+export const fetchFailure = (error: Error): IFetchFailureAction => ({
+  type: types.FETCH_FAILURE,
+  payload: error,
+});
 
 // cache
 
-export interface ICacheItem {
-  key: string;
-  data: any;
-  expires: number;
+interface ISetCacheAction extends Action {
+  payload: {
+    key: string;
+    data: any;
+  };
 }
 
-export type Cache = ICacheItem[];
-
-export const setCache = (key: string, data: any) => ({
+export const setCache = (key: string, data: any): ISetCacheAction => ({
   type: types.CACHE_SET,
   payload: { key, data },
 });

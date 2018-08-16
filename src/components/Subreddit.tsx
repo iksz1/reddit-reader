@@ -1,24 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { IPost } from "../utils/responseParser";
 import Post from "./Post";
-import { fetchData } from "../actions/creators";
+import { fetchRequest } from "../actions/creators";
+import { IAppState } from "../reducers/rootReducer";
 
-interface IState {
-  posts: IPost[];
-}
-
-interface IProps {
+interface IProps extends IPropsFromState, IPropsFromDispatch {
   subreddit: string;
   uri: string;
-  apiRequest: typeof fetchData;
 }
 
-class Subreddit extends Component<IProps, IState> {
-  state: IState = {
-    posts: [],
-  };
-
+class Subreddit extends Component<IProps> {
   componentDidMount() {
     this.loadData();
   }
@@ -31,37 +22,42 @@ class Subreddit extends Component<IProps, IState> {
   }
 
   loadData = () => {
-    const { uri, apiRequest } = this.props;
-    apiRequest({
-      uri,
-      onSuccess: data => this.setState({ posts: data.posts }),
-    });
+    const { uri, fetchPosts } = this.props;
+    fetchPosts({ uri });
   };
 
   render() {
-    const { posts } = this.state;
-    const { subreddit } = this.props;
+    const { subreddit, posts, isLoading } = this.props;
+
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
 
     return (
       <div>
         <h1>{`r/${subreddit}`}</h1>
-        {posts.map((post, i) => (
-          <Post key={post.id} post={post} delay={(i + 1) * 50} />
-        ))}
+        {posts && posts.map((post, i) => <Post key={post.id} post={post} delay={(i + 1) * 50} />)}
       </div>
     );
   }
 }
 
-// const mapStateToProps = (state) => ({
+type IPropsFromState = ReturnType<typeof mapStateToProps>;
 
-// })
+const mapStateToProps = ({ data }: IAppState) => ({
+  posts: data.data.posts,
+  isLoading: data.isLoading,
+});
+
+interface IPropsFromDispatch {
+  fetchPosts: typeof fetchRequest;
+}
 
 const mapDispatchToProps = {
-  apiRequest: fetchData,
+  fetchPosts: fetchRequest,
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Subreddit);

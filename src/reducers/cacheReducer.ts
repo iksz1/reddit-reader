@@ -1,6 +1,13 @@
 import { Reducer } from "redux";
 import types from "../actions/types";
-import { Cache } from "../actions/creators";
+
+interface ICacheItem {
+  key: string;
+  data: any;
+  expires: number;
+}
+
+export type Cache = ICacheItem[];
 
 const cacheReducer: Reducer<Cache> = (state = [], { type, payload }) => {
   switch (type) {

@@ -1,6 +1,9 @@
 import { Reducer } from "redux";
 import types from "../actions/types";
-import { IAuth } from "../actions/creators";
+
+export interface IAuth {
+  access_token?: string;
+}
 
 const authReducer: Reducer<IAuth> = (state = {}, { type, payload }) => {
   switch (type) {
