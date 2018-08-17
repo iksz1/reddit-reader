@@ -4,7 +4,10 @@ import Post from "./Post";
 import { fetchRequest } from "../actions/creators";
 import { IAppState } from "../reducers/rootReducer";
 
-interface IProps extends IPropsFromState, IPropsFromDispatch {
+type PFS = ReturnType<typeof mapStateToProps>;
+type PFD = typeof mapDispatchToProps;
+
+interface IProps extends PFS, PFD {
   subreddit: string;
   uri: string;
 }
@@ -44,16 +47,10 @@ class Subreddit extends Component<IProps> {
   }
 }
 
-type IPropsFromState = ReturnType<typeof mapStateToProps>;
-
 const mapStateToProps = ({ data }: IAppState) => ({
   posts: data.data.posts,
   isLoading: data.isLoading,
 });
-
-interface IPropsFromDispatch {
-  fetchPosts: typeof fetchRequest;
-}
 
 const mapDispatchToProps = {
   fetchPosts: fetchRequest,

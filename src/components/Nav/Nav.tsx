@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Link } from "@reach/router";
 import styled from "styled-components";
-import { IAppState } from "../../reducers/rootReducer";
 
 const Wrapper = styled.nav`
   position: relative;
@@ -88,8 +86,4 @@ class Nav extends Component<IProps> {
   }
 }
 
-const mapStateToProps = ({ subs }: IAppState) => ({
-  subs,
-});
-
-export default connect(mapStateToProps)(Nav);
+export default Nav;

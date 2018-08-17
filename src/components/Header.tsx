@@ -6,6 +6,7 @@ import Nav from "./Nav/Nav";
 import Modal from "./Modal";
 import { addSub } from "../actions/creators";
 import { Dispatch } from "redux";
+import { IAppState } from "../reducers/rootReducer";
 // import Modal from "react-modal";
 
 const Wrapper = styled.div`
@@ -33,8 +34,9 @@ const SLink = styled(Link)`
   text-decoration: none;
 `;
 
-interface IProps {
-  subs: string[];
+type PFS = ReturnType<typeof mapStateToProps>;
+
+interface IProps extends PFS {
   dispatch: Dispatch;
 }
 
@@ -69,7 +71,7 @@ class Header extends Component<IProps, IState> {
 
     return (
       <Wrapper>
-        <Nav />
+        <Nav subs={subs} />
         <ModalTrigger onClick={this.toggleModal}>#</ModalTrigger>
         <Modal isOpen={modalOpen} onRequestClose={this.toggleModal}>
           <p>Subreddits</p>
@@ -95,12 +97,8 @@ class Header extends Component<IProps, IState> {
   }
 }
 
-const mapStateToProps = ({ subs }: any) => ({
+const mapStateToProps = ({ subs }: IAppState) => ({
   subs,
 });
-
-// const mapDispatchToProps = {
-//
-// };
 
 export default connect(mapStateToProps)(Header);

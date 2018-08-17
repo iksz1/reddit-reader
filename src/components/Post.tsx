@@ -35,16 +35,6 @@ const PostMeta = styled.div`
   font-size: 1.4rem;
 `;
 
-// const ScoreBox = styled.div`
-//   border: 1px solid tan;
-//   border-radius: 50%;
-//   min-width: 4em;
-//   padding: 0.5em 0;
-//   margin-right: 1em;
-//   font-weight: bold;
-//   text-align: center;
-// `;
-
 interface IProps {
   post: IPost;
   delay: number;

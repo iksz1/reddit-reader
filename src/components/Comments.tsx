@@ -4,12 +4,15 @@ import { IAppState } from "../reducers/rootReducer";
 import { fetchRequest } from "../actions/creators";
 import Comment from "./Comment";
 
+type PFS = ReturnType<typeof mapStateToProps>;
+type PFD = typeof mapDispatchToProps;
+
 interface IProps {
   uri: string;
   postId: string;
 }
 
-class Comments extends Component<IProps & IPropsFromState & IPropsFromDispatch> {
+class Comments extends Component<IProps & PFS & PFD> {
   componentDidMount() {
     const { uri, fetchComments } = this.props;
     fetchComments({ uri });
@@ -30,15 +33,11 @@ class Comments extends Component<IProps & IPropsFromState & IPropsFromDispatch> 
   }
 }
 
-type IPropsFromState = ReturnType<typeof mapStateToProps>;
-
 const mapStateToProps = ({ data }: IAppState, { postId }: IProps) => ({
   post: data.data.posts.find(post => post.id === postId),
   comments: data.data.comments,
   isLoading: data.isLoading,
 });
-
-type IPropsFromDispatch = typeof mapDispatchToProps;
 
 const mapDispatchToProps = {
   fetchComments: fetchRequest,
