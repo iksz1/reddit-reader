@@ -3,6 +3,7 @@ import { hot } from "react-hot-loader";
 import { Router } from "@reach/router";
 import styled from "styled-components";
 import Subreddit from "../Subreddit";
+import Comments from "../Comments";
 import Header from "../Header";
 
 const Wrapper = styled.div`
@@ -44,6 +45,7 @@ const App = () => (
       <MainContent>
         <Router>
           <Subreddit path="/r/:subreddit" />
+          <Comments path="/r/:subreddit/comments/:postId/*" />
         </Router>
       </MainContent>
     </MainSection>

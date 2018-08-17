@@ -1,19 +1,18 @@
 import { Reducer } from "redux";
 import types from "../actions/types";
-import { IPost, IComment } from "../utils/responseParser";
+import { IParsedData } from "../utils/responseParser";
 
 export interface IData {
-  data: {
-    posts?: IPost[];
-    commnets?: IComment[];
-    meta?: any;
-  };
+  data: IParsedData;
   isLoading: boolean;
   error: Error | null;
 }
 
 const initialState = {
-  data: {},
+  data: {
+    posts: [],
+    comments: [],
+  },
   isLoading: false,
   error: null,
 };

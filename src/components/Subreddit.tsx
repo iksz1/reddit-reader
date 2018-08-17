@@ -36,7 +36,9 @@ class Subreddit extends Component<IProps> {
     return (
       <div>
         <h1>{`r/${subreddit}`}</h1>
-        {posts && posts.map((post, i) => <Post key={post.id} post={post} delay={(i + 1) * 50} />)}
+        {posts.map((post, i) => (
+          <Post key={post.id} post={post} delay={(i + 1) * 50} />
+        ))}
       </div>
     );
   }

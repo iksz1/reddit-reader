@@ -16,6 +16,7 @@ export interface IPost {
   score: number;
   num_comments: number;
   url: string;
+  permalink: string;
 }
 
 export interface IComment {
@@ -25,9 +26,22 @@ export interface IComment {
   score: number;
   replies: IResource;
   url: string;
+  body_html: string;
+  depth: number;
 }
 
-const parser = (data: any) => {
+interface IMeta {
+  after: string | null;
+  before: string | null;
+}
+
+export interface IParsedData {
+  posts: IPost[];
+  comments: IComment[][];
+  meta?: IMeta;
+}
+
+const parser = (data: any): IParsedData => {
   console.log(data);
 
   if (data.data) {
@@ -35,38 +49,38 @@ const parser = (data: any) => {
     const { children, after, before }: IListing = data.data;
     const posts = children.map(child => child.data) as IPost[];
     const meta = { after, before };
-    return { posts, meta };
+    return { posts, comments: [], meta };
   } else {
     // comments data
     const post = data[0].data.children[0].data as IPost;
-    const comments = flatComments(data[1].data.children);
-    return { post, comments };
+    const comments = flattenComments(data[1].data.children);
+    return { posts: [post], comments };
   }
 };
 
 // normalize comments
-const flatComments = (comments: IResource[]) => {
+const flattenComments = (comments: IResource[]) => {
   // return comments.filter(({data: cmt}) => !cmt.children ? {...cmt, replies: getReplies(cmt)} : false);
-  const result: IComment[] = [];
+  const result: IComment[][] = [];
   comments.forEach(({ data: cmt }) => {
     if (!cmt.children) {
-      const replies = getReplies(cmt);
-      result.push({ ...cmt, replies });
+      const replies = flattenReplies(cmt);
+      result.push([cmt, ...replies]);
     }
   });
   return result;
 };
 
-const getReplies = (comment: IComment) => {
+const flattenReplies = (comment: IComment) => {
   if (!comment.replies) return [];
 
   let replies: IComment[] = [];
   const { children }: IListing = comment.replies.data;
   children.forEach(child => {
     if (child.kind !== "more") {
-      const rep = child.data;
-      const moreReps = getReplies(rep);
-      replies = replies.concat(rep, moreReps);
+      const reply = child.data;
+      const moreReplies = flattenReplies(reply);
+      replies = replies.concat(reply, moreReplies);
     }
   });
   return replies;

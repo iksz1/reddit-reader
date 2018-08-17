@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { IPost } from "../utils/responseParser";
+import { Link } from "@reach/router";
 
 const appear = keyframes`
   0% {
@@ -18,7 +19,7 @@ const Wrapper = styled.div`
   animation: 200ms ease backwards ${appear};
 `;
 
-const PostTitle = styled.a`
+const PostTitle = styled(Link)`
   font-size: 1.8rem;
   font-weight: 600;
   color: inherit;
@@ -52,7 +53,7 @@ interface IProps {
 const Post = ({ post, delay }: IProps) => (
   <Wrapper style={{ animationDelay: delay + "ms" }}>
     <div>
-      <PostTitle href={post.url}>{post.title}</PostTitle>
+      <PostTitle to={post.permalink}>{post.title}</PostTitle>
       <PostMeta>
         <b>{post.score}</b> points | posted 5 min ago by {post.author} | <b>{post.num_comments}</b>{" "}
         comments
