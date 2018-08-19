@@ -17,6 +17,7 @@ export interface IPost {
   num_comments: number;
   url: string;
   permalink: string;
+  selftext_html: string;
 }
 
 export interface IComment {

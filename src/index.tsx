@@ -7,6 +7,7 @@ import { injectGlobal, ThemeProvider } from "styled-components";
 
 const theme = {
   bg: "#313529",
+  bgAlt: "#2a2d23",
   primary: "tan",
   border: "4px solid tan",
   borderAlt: "8px solid tan",
