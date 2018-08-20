@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import styled, { keyframes } from "styled-components";
+import ReactModal from "react-modal";
 
 const appear = keyframes`
 0% {
@@ -11,56 +11,41 @@ const appear = keyframes`
 }
 `;
 
-const Wrapper = styled.div`
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-`;
+// since className prop refers to inner part of the modal,
+// we use a wrapper to style overlay
+const ModalAdapter = ({ className, contentClassName, ...props }: any) => (
+  <ReactModal portalClassName={className} className={contentClassName} {...props} />
+);
 
-const Content = styled.div`
-  position: fixed;
-  height: 100%;
-  max-width: 50%;
-  padding: 1em;
-  overflow: auto;
-  background: ${p => p.theme.bg}
-  color: ${p => p.theme.primary}
-  border-right: 1px solid ${p => p.theme.primary}
-  animation: ${appear} 200ms ease;
-`;
-
-interface IProps {
-  isOpen?: boolean;
-  onRequestClose: () => void;
+interface IModalProps {
+  overlayClassName?: string;
+  contentClassName?: string;
 }
 
-const modalRoot = document.getElementById("modal-root") as HTMLElement;
-
-export default class Modal extends Component<IProps> {
-  el = document.createElement("div");
-
-  componentDidMount() {
-    modalRoot.appendChild(this.el);
+export const Modal = styled(ModalAdapter).attrs<IModalProps>({
+  overlayClassName: "overlay",
+  contentClassName: "content",
+})`
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.5);
   }
-
-  componentWillUnmount() {
-    modalRoot.removeChild(this.el);
+  .content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    max-width: 50%;
+    padding: 1em;
+    overflow: auto;
+    background: ${p => p.theme.bg}
+    color: ${p => p.theme.primary}
+    border-right: 1px solid ${p => p.theme.primary}
+    animation: ${appear} 200ms ease;
   }
-
-  render() {
-    const { isOpen, onRequestClose, children } = this.props;
-
-    if (!isOpen) return null;
-
-    return ReactDOM.createPortal(
-      <Wrapper>
-        <Content>{children}</Content>
-      </Wrapper>,
-      this.el
-    );
-  }
-}
+`;

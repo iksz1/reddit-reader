@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "@reach/router";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import Nav from "./Nav/Nav";
-import Modal from "./Modal";
+import { Modal } from "./Modal";
 import { addSub } from "../actions/creators";
 import { Dispatch } from "redux";
 import { IAppState } from "../reducers/rootReducer";
-// import Modal from "react-modal";
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,7 +21,6 @@ const ModalTrigger = styled.button`
   position: absolute;
   top: 1rem;
   left: 1rem;
-  z-index: 1001;
   background: inherit;
   color: inherit;
   font-size: 2rem;
