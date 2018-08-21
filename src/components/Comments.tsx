@@ -5,6 +5,7 @@ import { fetchRequest } from "../actions/creators";
 import Comment from "./Comment";
 import MainPost from "./MainPost";
 import styled from "styled-components";
+import { Spinner } from "./Loader";
 
 const CommentsChunk = styled.div`
   font-size: 1.6rem;
@@ -35,7 +36,7 @@ class Comments extends Component<IProps & PFS & PFD> {
     return (
       <div>
         {post && <MainPost post={post}>{post.title}</MainPost>}
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <Spinner size="2em" />}
         {comments.map((cmtChunk, i) => (
           <CommentsChunk key={i}>
             {cmtChunk.map(cmt => (

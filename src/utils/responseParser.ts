@@ -18,6 +18,7 @@ export interface IPost {
   url: string;
   permalink: string;
   selftext_html: string;
+  is_self: boolean;
 }
 
 export interface IComment {
