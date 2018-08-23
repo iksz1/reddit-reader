@@ -7,6 +7,7 @@ import { Modal } from "./Modal";
 import { addSub } from "../actions/creators";
 import { Dispatch } from "redux";
 import { IAppState } from "../reducers/rootReducer";
+import AddSubForm from "./AddSubForm";
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,8 +34,9 @@ const SLink = styled(Link)`
 `;
 
 type PFS = ReturnType<typeof mapStateToProps>;
+type PFD = typeof mapDispatchToProps;
 
-interface IProps extends PFS {
+interface IProps extends PFS, PFD {
   dispatch: Dispatch;
 }
 
@@ -53,19 +55,9 @@ class Header extends Component<IProps, IState> {
     this.setState(prevState => ({ modalOpen: !prevState.modalOpen }));
   };
 
-  submitSub = (e: React.FormEvent) => {
-    e.preventDefault();
-    this.props.dispatch(addSub(this.state.newSubValue));
-    this.setState({ newSubValue: "" });
-  };
-
-  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ newSubValue: e.target.value });
-  };
-
   render() {
-    const { modalOpen, newSubValue } = this.state;
-    const { subs } = this.props;
+    const { modalOpen } = this.state;
+    const { subs, addSubreddit } = this.props;
 
     return (
       <Wrapper>
@@ -73,15 +65,7 @@ class Header extends Component<IProps, IState> {
         <ModalTrigger onClick={this.toggleModal}>#</ModalTrigger>
         <Modal isOpen={modalOpen} onRequestClose={this.toggleModal}>
           <p>Subreddits</p>
-          <form onSubmit={this.submitSub}>
-            <input
-              type="text"
-              value={newSubValue}
-              onChange={this.handleInputChange}
-              placeholder="add subreddit"
-            />
-            <button type="submit">Add</button>
-          </form>
+          <AddSubForm onSubmit={addSubreddit} />
           <ul>
             {subs.map(sub => (
               <li key={sub}>
@@ -99,4 +83,11 @@ const mapStateToProps = ({ subs }: IAppState) => ({
   subs,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = {
+  addSubreddit: addSub,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
