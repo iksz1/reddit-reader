@@ -10,17 +10,23 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
+  width: 100%;
   padding: 0.5em;
   color: inherit;
   background: ${p => p.theme.bg};
   border: 1px solid ${p => p.theme.primary};
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 `;
 
 const Button = styled.button`
-  color: inherit;
-  background: inherit;
+  color: ${p => p.theme.bg};
+  background: ${p => p.theme.primary};
   border: 1px solid ${p => p.theme.primary}
   border-left: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-weight: bold;
 `;
 
 interface IProps {
@@ -47,7 +53,6 @@ export default class AddSubForm extends Component<IProps, IState> {
   };
 
   render() {
-    const { onSubmit } = this.props;
     const { inputValue } = this.state;
 
     return (

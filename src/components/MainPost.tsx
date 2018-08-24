@@ -30,7 +30,7 @@ const ExternalLink = styled.a`
 `;
 
 const PostBody = CommentBody.extend`
-  padding: 1em 0;
+  padding: 1em 0 2em;
 `;
 
 const PostMeta = CommentMeta.extend``;

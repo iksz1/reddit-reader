@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "@reach/router";
-import styled, { css, keyframes } from "styled-components";
+import styled from "styled-components";
 import Nav from "./Nav/Nav";
 import { Modal } from "./Modal";
 import { addSub } from "../actions/creators";
-import { Dispatch } from "redux";
 import { IAppState } from "../reducers/rootReducer";
 import AddSubForm from "./AddSubForm";
 
@@ -36,34 +35,30 @@ const SLink = styled(Link)`
 type PFS = ReturnType<typeof mapStateToProps>;
 type PFD = typeof mapDispatchToProps;
 
-interface IProps extends PFS, PFD {
-  dispatch: Dispatch;
-}
+interface IProps extends PFS, PFD {}
 
 interface IState {
-  modalOpen: boolean;
-  newSubValue: string;
+  isModalOpen: boolean;
 }
 
 class Header extends Component<IProps, IState> {
   state: IState = {
-    modalOpen: false,
-    newSubValue: "",
+    isModalOpen: false,
   };
 
   toggleModal = () => {
-    this.setState(prevState => ({ modalOpen: !prevState.modalOpen }));
+    this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
   };
 
   render() {
-    const { modalOpen } = this.state;
+    const { isModalOpen } = this.state;
     const { subs, addSubreddit } = this.props;
 
     return (
       <Wrapper>
         <Nav subs={subs} />
         <ModalTrigger onClick={this.toggleModal}>#</ModalTrigger>
-        <Modal isOpen={modalOpen} onRequestClose={this.toggleModal}>
+        <Modal isOpen={isModalOpen} onRequestClose={this.toggleModal}>
           <p>Subreddits</p>
           <AddSubForm onSubmit={addSubreddit} />
           <ul>
