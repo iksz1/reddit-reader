@@ -19,6 +19,7 @@ export interface IPost {
   permalink: string;
   selftext_html: string;
   is_self: boolean;
+  created_utc: number;
 }
 
 export interface IComment {

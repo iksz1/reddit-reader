@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { IPost } from "../utils/responseParser";
 import { CommentBody, CommentMeta } from "./Comment";
+import timeago from "timeago.js";
 
 const Wrapper = styled.div`
   position: relative;
@@ -42,12 +43,13 @@ interface IProps {
 export default class MainPost extends Component<IProps> {
   render() {
     const { post } = this.props;
+    const time = timeago().format(post.created_utc * 1000);
 
     return (
       <Wrapper>
         <PostTitle>{post.title}</PostTitle>
         <PostMeta>
-          posted by <strong>{post.author}</strong> 5 min ago
+          posted by <strong>{post.author}</strong> {time}
         </PostMeta>
         {!post.is_self && (
           <ExternalLink href={post.url} target="_blank" rel="noopener">

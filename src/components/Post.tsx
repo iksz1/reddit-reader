@@ -2,6 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { IPost } from "../utils/responseParser";
 import { Link } from "@reach/router";
+import timeago from "timeago.js";
 
 const appear = keyframes`
   0% {
@@ -40,16 +41,20 @@ interface IProps {
   delay: number;
 }
 
-const Post = ({ post, delay }: IProps) => (
-  <Wrapper style={{ animationDelay: delay + "ms" }}>
-    <div>
-      <PostTitle to={post.permalink}>{post.title}</PostTitle>
-      <PostMeta>
-        <b>{post.score}</b> points | posted 5 min ago by {post.author} | <b>{post.num_comments}</b>{" "}
-        comments
-      </PostMeta>
-    </div>
-  </Wrapper>
-);
+const Post = ({ post, delay }: IProps) => {
+  const time = timeago().format(post.created_utc * 1000);
+
+  return (
+    <Wrapper style={{ animationDelay: delay + "ms" }}>
+      <div>
+        <PostTitle to={post.permalink}>{post.title}</PostTitle>
+        <PostMeta>
+          <b>{post.score}</b> points | posted {time} by {post.author} | <b>{post.num_comments}</b>{" "}
+          comments
+        </PostMeta>
+      </div>
+    </Wrapper>
+  );
+};
 
 export default Post;
