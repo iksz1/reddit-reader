@@ -17,7 +17,7 @@ const appear = keyframes`
 
 const Wrapper = styled.div`
   margin: 1.5em 0;
-  animation: 200ms ease backwards ${appear};
+  animation: ${appear} 200ms ease backwards;
 `;
 
 const PostTitle = styled(Link)`

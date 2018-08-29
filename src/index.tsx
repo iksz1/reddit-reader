@@ -2,15 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./store";
-import App from "./components/App/App";
+import App from "./components/App";
 import { injectGlobal, ThemeProvider } from "styled-components";
 
 const theme = {
   bg: "#313529",
   bgAlt: "#2a2d23",
   primary: "tan",
-  border: "4px solid tan",
-  borderAlt: "8px solid tan",
 };
 
 ReactDOM.render(
@@ -42,5 +40,6 @@ injectGlobal`
   }
   :root {
     --content-width: 72rem;
+    --sidebar-width: 20rem;
   }
 `;

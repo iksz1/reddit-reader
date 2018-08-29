@@ -2,6 +2,7 @@ import { Action } from "redux";
 import types from "./types";
 import { Subs } from "../reducers/subsReducer";
 import { IAuth } from "../reducers/authReducer";
+import { IView } from "../reducers/viewReducer";
 
 // subs
 
@@ -88,4 +89,10 @@ interface ISetCacheAction extends Action {
 export const setCache = (key: string, data: any): ISetCacheAction => ({
   type: types.CACHE_SET,
   payload: { key, data },
+});
+
+// view
+
+export const toggleSidebar = (): Action => ({
+  type: types.VIEW_TOGGLE_SIDEBAR,
 });
