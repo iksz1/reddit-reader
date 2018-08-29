@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { IComment } from "../utils/responseParser";
 import styled from "styled-components";
+import { darken } from "polished";
 
 const Wrapper = styled.div`
   &:not(:last-child) {
@@ -17,18 +18,18 @@ export const CommentBody = styled.div`
     margin: 0;
   }
   pre {
-    background: ${p => p.theme.bgAlt};
+    background: ${p => darken(0.025, p.theme.bg)};
     padding: 0.5em;
     white-space: pre-wrap;
   }
   code {
-    background: ${p => p.theme.bgAlt};
+    background: ${p => darken(0.025, p.theme.bg)};
     padding: 0 0.2em;
   }
   blockquote {
     margin: 0.2em 0;
     padding: 0.5em 1em;
-    background: ${p => p.theme.bgAlt};
+    background: ${p => darken(0.025, p.theme.bg)};
     border-left: 5px solid ${p => p.theme.primary};
   }
   a {
