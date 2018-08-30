@@ -9,13 +9,12 @@ import Sidebar from "./Sidebar";
 import { IAppState } from "../reducers/rootReducer";
 
 const Wrapper = styled.div`
-  background: ${p => p.theme.bg};
-  color: ${p => p.theme.primary};
-`;
-
-const MainSection = styled.div`
   display: flex;
   justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  background: ${p => p.theme.bg};
+  color: ${p => p.theme.primary};
 `;
 
 interface IMainContentProps {
@@ -24,7 +23,6 @@ interface IMainContentProps {
 
 const MainContent = styled.div<IMainContentProps>`
   max-width: var(--content-width);
-  min-height: 100vh;
   padding: 1em;
   transition: transform 200ms ease-out;
   @media (min-width: 600px) {
@@ -40,14 +38,12 @@ type PFS = ReturnType<typeof mapStateToProps>;
 const App = ({ isSidebarVisible }: PFS) => (
   <Wrapper>
     <Sidebar />
-    <MainSection>
-      <MainContent shareSpace={isSidebarVisible}>
-        <Router>
-          <Subreddit path="/r/:subreddit" />
-          <Comments path="/r/:subreddit/comments/:postId/*" />
-        </Router>
-      </MainContent>
-    </MainSection>
+    <MainContent shareSpace={isSidebarVisible}>
+      <Router>
+        <Subreddit path="/r/:subreddit" />
+        <Comments path="/r/:subreddit/comments/:postId/*" />
+      </Router>
+    </MainContent>
   </Wrapper>
 );
 

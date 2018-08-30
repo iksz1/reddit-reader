@@ -31,7 +31,7 @@ const Trigger = styled.button`
   z-index: 2;
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   width: 4rem;
   height: 4rem;
   font-size: 2rem;
@@ -72,11 +72,13 @@ class Sidebar extends Component<IProps> {
     return (
       <>
         <Trigger onClick={toggleVisibility}>#</Trigger>
-        <Wrapper isVisible={isVisible}>
+        <Wrapper isVisible={isVisible} aria-hidden={!isVisible}>
           <List>
             {subs.map(sub => (
               <li key={sub}>
-                <SLink to={`/r/${sub}`}>{sub}</SLink>
+                <SLink to={`/r/${sub}`} tabIndex={isVisible ? 0 : -1}>
+                  {sub}
+                </SLink>
               </li>
             ))}
           </List>
