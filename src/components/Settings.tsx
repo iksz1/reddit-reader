@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { IAppState } from "../reducers/rootReducer";
 import * as actions from "../actions/creators";
 import AddSubForm from "./AddSubForm";
+import themes from "../utils/themes";
 
 const Wrapper = styled.div`
   /* width: 100%; */
@@ -25,10 +26,13 @@ const Select = styled.select`
   background: ${p => p.theme.bg};
   color: inherit;
   border: 1px solid ${p => p.theme.primary};
+  text-transform: capitalize;
 `;
 
 const List = styled.ul`
+  max-height: 20em;
   padding: 0.5em;
+  overflow-y: auto;
   list-style: none;
   font-family: "Roboto Condensed", sans-serif;
   font-size: 1.4rem;
@@ -88,9 +92,11 @@ class Settings extends Component<IProps> {
         <BlockLabel>Theme</BlockLabel>
         <Block>
           <Select value={themeName} onChange={this.handleThemeChange}>
-            <option value="night">Night</option>
-            <option value="light">Light</option>
-            <option value="alright">Alright</option>
+            {Object.keys(themes).map(name => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
           </Select>
         </Block>
       </Wrapper>

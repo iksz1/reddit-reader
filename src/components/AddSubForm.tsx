@@ -24,6 +24,7 @@ const Button = styled.button`
   border-left: none;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
+  font-family: inherit;
   font-weight: bold;
 `;
 
@@ -62,7 +63,9 @@ export default class AddSubForm extends Component<IProps, IState> {
             onChange={this.handleChange}
             placeholder="add subreddit"
           />
-          <Button type="submit">Add</Button>
+          <Button type="submit" disabled={inputValue ? false : true}>
+            Add
+          </Button>
         </Form>
       </Wrapper>
     );

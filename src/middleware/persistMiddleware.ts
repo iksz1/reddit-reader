@@ -11,12 +11,12 @@ const saveItem = (key: string, value: string) => {
 
 // saves changes in localStorage
 
-export const persistMiddleware: Middleware = store => next => action => {
+export const persistMiddleware: Middleware = ({ getState }) => next => action => {
   switch (action.type) {
     case types.SUBS_ADD:
     case types.SUBS_REMOVE:
       next(action);
-      saveItem("_subs", JSON.stringify(store.getState().subs));
+      saveItem("_subs", JSON.stringify(getState().subs));
       return;
     case types.VIEW_CHANGE_THEME:
       saveItem("_theme", action.payload);

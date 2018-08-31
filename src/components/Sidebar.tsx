@@ -60,6 +60,10 @@ const SLink = styled(Link)`
   }
 `;
 
+const isActive = ({ isCurrent }: any) => {
+  return isCurrent ? { style: { textDecoration: "underline" } } : null;
+};
+
 type PFS = ReturnType<typeof mapStateToProps>;
 type PFD = typeof mapDispatchToProps;
 
@@ -76,7 +80,7 @@ class Sidebar extends Component<IProps> {
           <List>
             {subs.map(sub => (
               <li key={sub}>
-                <SLink to={`/r/${sub}`} tabIndex={isVisible ? 0 : -1}>
+                <SLink to={`/r/${sub}`} tabIndex={isVisible ? 0 : -1} getProps={isActive}>
                   {sub}
                 </SLink>
               </li>
