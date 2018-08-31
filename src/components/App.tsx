@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Subreddit from "./Subreddit";
 import Comments from "./Comments";
 import Sidebar from "./Sidebar";
+import Settings from "./Settings";
 import { IAppState } from "../reducers/rootReducer";
 
 const Wrapper = styled.div`
@@ -22,6 +23,7 @@ interface IMainContentProps {
 }
 
 const MainContent = styled.div<IMainContentProps>`
+  flex: auto;
   max-width: var(--content-width);
   padding: 1em;
   transition: transform 200ms ease-out;
@@ -42,6 +44,7 @@ const App = ({ isSidebarVisible }: PFS) => (
       <Router>
         <Subreddit path="/r/:subreddit" />
         <Comments path="/r/:subreddit/comments/:postId/*" />
+        <Settings path="/settings" />
       </Router>
     </MainContent>
   </Wrapper>

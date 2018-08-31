@@ -15,8 +15,6 @@ const Input = styled.input`
   color: inherit;
   background: ${p => p.theme.bg};
   border: 1px solid ${p => p.theme.primary};
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
 `;
 
 const Button = styled.button`
