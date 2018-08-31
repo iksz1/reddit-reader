@@ -9,6 +9,7 @@ enum actionTypes {
   FETCH_FAILURE = "FETCH_FAILURE",
   CACHE_SET = "CACHE_SET",
   VIEW_TOGGLE_SIDEBAR = "VIEW_TOGGLE_SIDEBAR",
+  VIEW_CHANGE_THEME = "VIEW_CHANGE_THEME",
 }
 
 export default actionTypes;

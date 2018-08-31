@@ -2,7 +2,7 @@ import React from "react";
 import { hot } from "react-hot-loader";
 import { Router } from "@reach/router";
 import { connect } from "react-redux";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import Subreddit from "./Subreddit";
 import Comments from "./Comments";
 import Sidebar from "./Sidebar";
@@ -37,21 +37,24 @@ const MainContent = styled.div<IMainContentProps>`
 
 type PFS = ReturnType<typeof mapStateToProps>;
 
-const App = ({ isSidebarVisible }: PFS) => (
-  <Wrapper>
-    <Sidebar />
-    <MainContent shareSpace={isSidebarVisible}>
-      <Router>
-        <Subreddit path="/r/:subreddit" />
-        <Comments path="/r/:subreddit/comments/:postId/*" />
-        <Settings path="/settings" />
-      </Router>
-    </MainContent>
-  </Wrapper>
+const App = ({ isSidebarVisible, theme }: PFS) => (
+  <ThemeProvider theme={theme}>
+    <Wrapper>
+      <Sidebar />
+      <MainContent shareSpace={isSidebarVisible}>
+        <Router>
+          <Subreddit path="/r/:subreddit" />
+          <Comments path="/r/:subreddit/comments/:postId/*" />
+          <Settings path="/settings" />
+        </Router>
+      </MainContent>
+    </Wrapper>
+  </ThemeProvider>
 );
 
 const mapStateToProps = ({ view }: IAppState) => ({
   isSidebarVisible: view.isSidebarVisible,
+  theme: view.theme,
 });
 
 export default hot(module)(connect(mapStateToProps)(App));

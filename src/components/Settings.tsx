@@ -63,22 +63,13 @@ type PFD = typeof mapDispatchToProps;
 
 interface IProps extends PFS, PFD {}
 
-interface IState {
-  selectedTheme: string;
-}
-
-class Settings extends Component<IProps, IState> {
-  state: IState = {
-    selectedTheme: "",
-  };
-
+class Settings extends Component<IProps> {
   handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ selectedTheme: e.target.value });
+    this.props.changeTheme(e.target.value);
   };
 
   render() {
-    const { subs, addSub, removeSub, loadSubs } = this.props;
-    const { selectedTheme } = this.state;
+    const { subs, addSub, removeSub, loadSubs, themeName } = this.props;
 
     return (
       <Wrapper>
@@ -96,7 +87,7 @@ class Settings extends Component<IProps, IState> {
         </Block>
         <BlockLabel>Theme</BlockLabel>
         <Block>
-          <Select value={selectedTheme} onChange={this.handleThemeChange}>
+          <Select value={themeName} onChange={this.handleThemeChange}>
             <option value="night">Night</option>
             <option value="light">Light</option>
             <option value="alright">Alright</option>
@@ -107,14 +98,16 @@ class Settings extends Component<IProps, IState> {
   }
 }
 
-const mapStateToProps = ({ subs }: IAppState) => ({
+const mapStateToProps = ({ subs, view }: IAppState) => ({
   subs,
+  themeName: view.theme.name,
 });
 
 const mapDispatchToProps = {
   addSub: actions.addSub,
   removeSub: actions.removeSub,
   loadSubs: actions.loadSubs,
+  changeTheme: actions.changeTheme,
 };
 
 export default connect(

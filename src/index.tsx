@@ -3,19 +3,11 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import App from "./components/App";
-import { injectGlobal, ThemeProvider } from "styled-components";
-
-const theme = {
-  bg: "#313529",
-  bgAlt: "#2a2d23",
-  primary: "tan",
-};
+import { injectGlobal } from "styled-components";
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <App />
   </Provider>,
   document.getElementById("root")
 );

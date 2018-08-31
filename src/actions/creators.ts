@@ -96,3 +96,12 @@ export const setCache = (key: string, data: any): ISetCacheAction => ({
 export const toggleSidebar = (): Action => ({
   type: types.VIEW_TOGGLE_SIDEBAR,
 });
+
+interface IChangeThemeAction extends Action {
+  payload: string;
+}
+
+export const changeTheme = (themeName: string): IChangeThemeAction => ({
+  type: types.VIEW_CHANGE_THEME,
+  payload: themeName,
+});
