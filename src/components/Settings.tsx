@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { IAppState } from "../reducers/rootReducer";
 import * as actions from "../actions/creators";
 import AddSubForm from "./AddSubForm";
-import themes from "../utils/themes";
+import THEMES from "../constants/themes";
 
 const Wrapper = styled.div`
   /* width: 100%; */
@@ -92,7 +92,7 @@ class Settings extends Component<IProps> {
         <BlockLabel>Theme</BlockLabel>
         <Block>
           <Select value={themeName} onChange={this.handleThemeChange}>
-            {Object.keys(themes).map(name => (
+            {Object.keys(THEMES).map(name => (
               <option key={name} value={name}>
                 {name}
               </option>

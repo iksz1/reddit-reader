@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { fetchMiddleware } from "./middleware/fetchMiddleware";
 import { persistMiddleware } from "./middleware/persistMiddleware";
 import reducer from "./reducers/rootReducer";
-import themes from "./utils/themes";
+import THEMES from "./constants/themes";
 
 const getItem = (key: string, parse = true) => {
   try {
@@ -21,7 +21,7 @@ const initialStore = {
   subs: getItem("_subs") || defaultSubs,
   view: {
     isSidebarVisible: window.innerWidth >= 720,
-    theme: themeName in themes ? themes[themeName] : themes.night,
+    theme: themeName in THEMES ? THEMES[themeName] : THEMES.night,
   },
 };
 

@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import types from "../actions/types";
-import themes from "../utils/themes";
+import THEMES from "../constants/themes";
 
 export interface IView {
   isSidebarVisible: boolean;
@@ -13,7 +13,7 @@ export interface IView {
 
 const initialState = {
   isSidebarVisible: false,
-  theme: themes.night,
+  theme: THEMES.night,
 };
 
 const viewReducer: Reducer<IView> = (state = initialState, { type, payload }) => {
@@ -21,7 +21,7 @@ const viewReducer: Reducer<IView> = (state = initialState, { type, payload }) =>
     case types.VIEW_TOGGLE_SIDEBAR:
       return { ...state, isSidebarVisible: !state.isSidebarVisible };
     case types.VIEW_CHANGE_THEME:
-      return { ...state, theme: themes[payload] };
+      return { ...state, theme: THEMES[payload] };
 
     default:
       return state;

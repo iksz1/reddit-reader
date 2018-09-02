@@ -23,11 +23,11 @@ const ExternalLink = styled.a`
   color: inherit;
 `;
 
-const PostBody = CommentBody.extend`
+const PostBody = styled(CommentBody)`
   margin: 1em 0 2em;
 `;
 
-const PostMeta = CommentMeta.extend``;
+const PostMeta = styled(CommentMeta)``;
 
 interface IProps {
   post: IPost;
