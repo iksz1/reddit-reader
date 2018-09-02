@@ -1,10 +1,10 @@
-interface IResource {
+interface IResource<T> {
   kind: string;
-  data: any;
+  data: T;
 }
 
-interface IListing {
-  children: IResource[];
+interface IListing<T> {
+  children: IResource<T>[];
   after: string | null;
   before: string | null;
 }
@@ -27,7 +27,7 @@ export interface IComment {
   title: string;
   author: string;
   score: number;
-  replies: IResource;
+  replies: IResource<IListing<IComment>> | "";
   url: string;
   body_html: string;
   depth: number;
@@ -49,8 +49,8 @@ const parser = (data: any): IParsedData => {
 
   if (data.data) {
     // subreddit data
-    const { children, after, before }: IListing = data.data;
-    const posts = children.map(child => child.data) as IPost[];
+    const { children, after, before }: IListing<IPost> = data.data;
+    const posts = children.map(child => child.data);
     const meta = { after, before };
     return { posts, comments: [], meta };
   } else {
@@ -62,31 +62,27 @@ const parser = (data: any): IParsedData => {
 };
 
 // normalize comments
-const flattenComments = (comments: IResource[]) => {
-  // return comments.filter(({data: cmt}) => !cmt.children ? {...cmt, replies: getReplies(cmt)} : false);
+const flattenComments = (comments: IResource<IComment>[]): IComment[][] => {
+  // return comments.map(({ data }) => (!data.children ? [data, ...flattenReplies(data)] : []));
   const result: IComment[][] = [];
-  comments.forEach(({ data: cmt }) => {
-    if (!cmt.children) {
-      const replies = flattenReplies(cmt);
-      result.push([cmt, ...replies]);
+  comments.forEach(({ kind, data }) => {
+    if (kind === "t1") {
+      result.push([data, ...flattenReplies(data)]);
     }
   });
   return result;
 };
 
-const flattenReplies = (comment: IComment) => {
+const flattenReplies = (comment: IComment): IComment[] => {
   if (!comment.replies) return [];
 
-  let replies: IComment[] = [];
-  const { children }: IListing = comment.replies.data;
-  children.forEach(child => {
-    if (child.kind !== "more") {
-      const reply = child.data;
-      const moreReplies = flattenReplies(reply);
-      replies = replies.concat(reply, moreReplies);
+  const result: IComment[] = [];
+  comment.replies.data.children.forEach(({ kind, data }) => {
+    if (kind === "t1") {
+      result.push(data, ...flattenReplies(data));
     }
   });
-  return replies;
+  return result;
 };
 
 export default parser;

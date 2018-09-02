@@ -21,6 +21,7 @@
     "jsx-no-multiline-js": false,
     "semicolon": [true, "always", "ignore-bound-class-methods"],
     "curly": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "array-type": false
   }
 }
