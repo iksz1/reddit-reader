@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import App from "./components/App";
 import { injectGlobal } from "styled-components";
+import registerServiceWorker from "./registerServiceWorker";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -11,6 +12,8 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+
+registerServiceWorker();
 
 // global styles
 // tslint:disable-next-line

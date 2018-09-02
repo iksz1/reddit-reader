@@ -1,10 +1,13 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 //https://webpack.js.org/plugins/html-webpack-plugin/
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "public/index.html",
-  // favicon: "public/favicon.ico",
+  favicon: "public/favicon.png",
   // filename: "index.html",
   minify: {
     removeComments: true,
@@ -20,9 +23,43 @@ const htmlPlugin = new HtmlWebPackPlugin({
   },
 });
 
+const swPlugin = new SWPrecacheWebpackPlugin({
+  dontCacheBustUrlsMatching: /\.\w{8}\./,
+  filename: "service-worker.js",
+  logger(message) {
+    if (message.indexOf("Total precache size is") === 0) {
+      return;
+    }
+    if (message.indexOf("Skipping static resource") === 0) {
+      return;
+    }
+    console.log(message);
+  },
+  minify: true,
+  navigateFallback: "/index.html",
+  staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/, /_redirects$/],
+});
+
+const manifestPlugin = new WebpackPwaManifest({
+  name: "Reddit client",
+  short_name: "Reddit",
+  description: "Simple reddit client.",
+  background_color: "#ffffff",
+  theme_color: "#000000",
+  icons: [
+    {
+      src: path.resolve("img/reddit.png"),
+      sizes: [96, 120, 128, 256, 512],
+    },
+  ],
+});
+
+const copyPlugin = new CopyWebpackPlugin([{ from: "./public/_redirects" }]);
+
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
   const plugins = [htmlPlugin];
+  if (isProduction) plugins.push(manifestPlugin, swPlugin, copyPlugin);
 
   return {
     entry: ["./config/polyfills.js", "./src/index.tsx"],
