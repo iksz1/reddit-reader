@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { IAppState } from "../reducers/rootReducer";
+import { RouteComponentProps } from "@reach/router";
 import { fetchRequest } from "../actions/creators";
 import Comment from "./Comment";
 import MainPost from "./MainPost";
@@ -19,15 +20,14 @@ const CommentsChunk = styled.div`
 type PFS = ReturnType<typeof mapStateToProps>;
 type PFD = typeof mapDispatchToProps;
 
-interface IProps {
-  uri: string;
-  postId: string;
+interface IProps extends RouteComponentProps {
+  postId?: string;
 }
 
 class Comments extends Component<IProps & PFS & PFD> {
   componentDidMount() {
     const { uri, fetchComments } = this.props;
-    fetchComments({ uri });
+    fetchComments({ uri: uri as string });
   }
 
   render() {

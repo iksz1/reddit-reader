@@ -3,14 +3,14 @@ import { connect } from "react-redux";
 import Post from "./Post";
 import { fetchRequest } from "../actions/creators";
 import { IAppState } from "../reducers/rootReducer";
+import { RouteComponentProps } from "@reach/router";
 import { Spinner } from "./Loader";
 
 type PFS = ReturnType<typeof mapStateToProps>;
 type PFD = typeof mapDispatchToProps;
 
-interface IProps extends PFS, PFD {
-  subreddit: string;
-  uri: string;
+interface IProps extends PFS, PFD, RouteComponentProps {
+  subreddit?: string;
 }
 
 class Subreddit extends Component<IProps> {
@@ -27,7 +27,7 @@ class Subreddit extends Component<IProps> {
 
   loadData = () => {
     const { uri, fetchPosts } = this.props;
-    fetchPosts({ uri });
+    fetchPosts({ uri: uri as string });
   };
 
   render() {

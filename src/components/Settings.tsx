@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { IAppState } from "../reducers/rootReducer";
+import { RouteComponentProps } from "@reach/router";
 import * as actions from "../actions/creators";
 import AddSubForm from "./AddSubForm";
 import THEMES from "../constants/themes";
@@ -65,7 +66,7 @@ const XBtn = styled.button`
 type PFS = ReturnType<typeof mapStateToProps>;
 type PFD = typeof mapDispatchToProps;
 
-interface IProps extends PFS, PFD {}
+interface IProps extends PFS, PFD, RouteComponentProps {}
 
 class Settings extends Component<IProps> {
   handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

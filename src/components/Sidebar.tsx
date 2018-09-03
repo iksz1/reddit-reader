@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { IAppState } from "../reducers/rootReducer";
+import { LinkGetProps } from "@reach/router";
 import { Link } from "@reach/router";
 import { toggleSidebar } from "../actions/creators";
 
@@ -60,8 +61,9 @@ const SLink = styled(Link)`
   }
 `;
 
-const isActive = ({ isCurrent }: any) => {
-  return isCurrent ? { style: { textDecoration: "underline" } } : null;
+// apply style to active link
+const isActive = ({ isCurrent }: LinkGetProps) => {
+  return isCurrent ? { style: { textDecoration: "underline" } } : {};
 };
 
 type PFS = ReturnType<typeof mapStateToProps>;
