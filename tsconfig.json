@@ -10,16 +10,11 @@
     "moduleResolution": "node",
     // "rootDir": "src",
     // "esModuleInterop": true,
+    // "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noEmit": true
   },
   "include": ["./src/**/*", "./config/polyfills.js"]
-  // "exclude": [
-  //   "node_modules",
-  //   "build",
-  //   "src/setupTests.ts"
-  // ]
 }

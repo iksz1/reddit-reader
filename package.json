@@ -4,8 +4,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --hot --open chrome",
     "build": "webpack --mode production",
-    "test": "jest",
-    "tcheck": "tsc --noEmit"
+    "test": "jest"
   },
   "jest": {
     "moduleNameMapper": {
