@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { IAppState } from "../reducers/rootReducer";
 import { LinkGetProps } from "@reach/router";
 import { Link } from "@reach/router";
-import { toggleSidebar } from "../actions/creators";
+import { toggleSidebar } from "../actions";
 
 interface IWrapperProps {
   isVisible?: boolean;

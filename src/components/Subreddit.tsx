@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Post from "./Post";
-import { fetchRequest } from "../actions/creators";
+import { fetchRequest } from "../actions";
 import { IAppState } from "../reducers/rootReducer";
 import { RouteComponentProps } from "@reach/router";
 import { Spinner } from "./Loader";
@@ -19,7 +19,6 @@ class Subreddit extends Component<IProps> {
   }
 
   componentDidUpdate(prevProps: IProps) {
-    // to lowercase?
     if (this.props.subreddit !== prevProps.subreddit) {
       this.loadData();
     }
@@ -34,7 +33,7 @@ class Subreddit extends Component<IProps> {
     const { subreddit, posts, isLoading } = this.props;
 
     return (
-      <div>
+      <>
         <h1>
           {`r/${subreddit}`}
           {isLoading && <Spinner style={{ marginLeft: "0.5em" }} />}
@@ -42,7 +41,7 @@ class Subreddit extends Component<IProps> {
         {posts.map((post, i) => (
           <Post key={post.id} post={post} delay={(i + 1) * 50} />
         ))}
-      </div>
+      </>
     );
   }
 }

@@ -8,6 +8,7 @@ import Comments from "./Comments";
 import Sidebar from "./Sidebar";
 import Settings from "./Settings";
 import { IAppState } from "../reducers/rootReducer";
+import { THEMES } from "../constants";
 
 const Wrapper = styled.div`
   display: flex;
@@ -37,8 +38,8 @@ const MainContent = styled.div<IMainContentProps>`
 
 type PFS = ReturnType<typeof mapStateToProps>;
 
-const App = ({ isSidebarVisible, theme }: PFS) => (
-  <ThemeProvider theme={theme}>
+const App = ({ isSidebarVisible, themeId }: PFS) => (
+  <ThemeProvider theme={THEMES[themeId]}>
     <Wrapper>
       <Sidebar />
       <MainContent shareSpace={isSidebarVisible}>
@@ -54,7 +55,7 @@ const App = ({ isSidebarVisible, theme }: PFS) => (
 
 const mapStateToProps = ({ view }: IAppState) => ({
   isSidebarVisible: view.isSidebarVisible,
-  theme: view.theme,
+  themeId: view.themeId,
 });
 
 export default hot(module)(connect(mapStateToProps)(App));

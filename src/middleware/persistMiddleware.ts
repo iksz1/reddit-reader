@@ -1,25 +1,17 @@
-import types from "../actions/types";
+import { TYPES } from "../constants";
 import { Middleware } from "redux";
-
-const saveItem = (key: string, value: string) => {
-  try {
-    localStorage.setItem(key, value);
-  } catch (error) {
-    console.error(`Failed to save ${key}`); // tslint:disable-line
-  }
-};
+import { setItem } from "../utils/localStorage";
 
 // saves changes in localStorage
-
 export const persistMiddleware: Middleware = ({ getState }) => next => action => {
   switch (action.type) {
-    case types.SUBS_ADD:
-    case types.SUBS_REMOVE:
+    case TYPES.SUBS_ADD:
+    case TYPES.SUBS_REMOVE:
       next(action);
-      saveItem("_subs", JSON.stringify(getState().subs));
+      setItem("_subs", JSON.stringify(getState().subs));
       return;
-    case types.VIEW_CHANGE_THEME:
-      saveItem("_theme", action.payload);
+    case TYPES.VIEW_CHANGE_THEME:
+      setItem("_theme", action.payload);
       return next(action);
 
     default:

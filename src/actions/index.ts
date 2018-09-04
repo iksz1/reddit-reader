@@ -1,8 +1,7 @@
 import { Action } from "redux";
-import types from "./types";
+import { TYPES } from "../constants";
 import { Subs } from "../reducers/subsReducer";
 import { IAuth } from "../reducers/authReducer";
-import { IView } from "../reducers/viewReducer";
 
 // subs
 
@@ -11,7 +10,7 @@ interface ILoadSubsAction extends Action {
 }
 
 export const loadSubs = (subs: Subs): ILoadSubsAction => ({
-  type: types.SUBS_LOAD,
+  type: TYPES.SUBS_LOAD,
   payload: subs,
 });
 
@@ -20,7 +19,7 @@ interface IAddSubAction extends Action {
 }
 
 export const addSub = (sub: string): IAddSubAction => ({
-  type: types.SUBS_ADD,
+  type: TYPES.SUBS_ADD,
   payload: sub,
 });
 
@@ -29,7 +28,7 @@ interface IRemoveSubAction extends Action {
 }
 
 export const removeSub = (sub: string): IRemoveSubAction => ({
-  type: types.SUBS_REMOVE,
+  type: TYPES.SUBS_REMOVE,
   payload: sub,
 });
 
@@ -40,7 +39,7 @@ interface ISetAuthAction extends Action {
 }
 
 export const setAuth = (auth: IAuth): ISetAuthAction => ({
-  type: types.AUTH_SET,
+  type: TYPES.AUTH_SET,
   payload: auth,
 });
 
@@ -55,7 +54,7 @@ interface IFetchRequestAction extends Action {
 }
 
 export const fetchRequest = (request: IFetchRequest): IFetchRequestAction => ({
-  type: types.FETCH_REQUEST,
+  type: TYPES.FETCH_REQUEST,
   payload: request,
 });
 
@@ -64,7 +63,7 @@ interface IFetchSuccessAction extends Action {
 }
 
 export const fetchSuccess = (data: any): IFetchSuccessAction => ({
-  type: types.FETCH_SUCCESS,
+  type: TYPES.FETCH_SUCCESS,
   payload: data,
 });
 
@@ -73,7 +72,7 @@ interface IFetchFailureAction extends Action {
 }
 
 export const fetchFailure = (error: Error): IFetchFailureAction => ({
-  type: types.FETCH_FAILURE,
+  type: TYPES.FETCH_FAILURE,
   payload: error,
 });
 
@@ -87,14 +86,14 @@ interface ISetCacheAction extends Action {
 }
 
 export const setCache = (key: string, data: any): ISetCacheAction => ({
-  type: types.CACHE_SET,
+  type: TYPES.CACHE_SET,
   payload: { key, data },
 });
 
 // view
 
 export const toggleSidebar = (): Action => ({
-  type: types.VIEW_TOGGLE_SIDEBAR,
+  type: TYPES.VIEW_TOGGLE_SIDEBAR,
 });
 
 interface IChangeThemeAction extends Action {
@@ -102,6 +101,6 @@ interface IChangeThemeAction extends Action {
 }
 
 export const changeTheme = (themeName: string): IChangeThemeAction => ({
-  type: types.VIEW_CHANGE_THEME,
+  type: TYPES.VIEW_CHANGE_THEME,
   payload: themeName,
 });

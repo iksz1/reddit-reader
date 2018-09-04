@@ -2,26 +2,17 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { fetchMiddleware } from "./middleware/fetchMiddleware";
 import { persistMiddleware } from "./middleware/persistMiddleware";
 import reducer from "./reducers/rootReducer";
-import THEMES from "./constants/themes";
+import { THEMES, DEFAULT_THEME, DEFAULT_SUBS } from "./constants";
+import { getItem } from "./utils/localStorage";
 
-const getItem = (key: string, parse = true) => {
-  try {
-    const item = localStorage.getItem(key) || "";
-    return parse ? JSON.parse(item) : item;
-  } catch (error) {
-    return null;
-  }
-};
-
-const defaultSubs = ["webdev", "javascript", "reactjs"];
-const themeName = getItem("_theme", false) || "night";
+const themeId = getItem("_theme");
 
 const initialStore = {
-  auth: getItem("_auth"),
-  subs: getItem("_subs") || defaultSubs,
+  auth: getItem("_auth", true),
+  subs: getItem("_subs", true) || DEFAULT_SUBS,
   view: {
     isSidebarVisible: window.innerWidth >= 720,
-    theme: themeName in THEMES ? THEMES[themeName] : THEMES.night,
+    themeId: themeId in THEMES ? themeId : DEFAULT_THEME,
   },
 };
 

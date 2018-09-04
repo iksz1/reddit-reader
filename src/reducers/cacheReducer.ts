@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import types from "../actions/types";
+import { TYPES } from "../constants";
 
 interface ICacheItem {
   key: string;
@@ -11,7 +11,7 @@ export type Cache = ICacheItem[];
 
 const cacheReducer: Reducer<Cache> = (state = [], { type, payload }) => {
   switch (type) {
-    case types.CACHE_SET:
+    case TYPES.CACHE_SET:
       const cache = [...state];
       // keep last 5 entries
       if (cache.length === 5) {

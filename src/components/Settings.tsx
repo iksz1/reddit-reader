@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { IAppState } from "../reducers/rootReducer";
 import { RouteComponentProps } from "@reach/router";
-import * as actions from "../actions/creators";
+import * as actions from "../actions";
 import AddSubForm from "./AddSubForm";
-import THEMES from "../constants/themes";
+import { THEMES } from "../constants";
 
 const Wrapper = styled.div`
   /* width: 100%; */
@@ -27,7 +27,6 @@ const Select = styled.select`
   background: ${p => p.theme.bg};
   color: inherit;
   border: 1px solid ${p => p.theme.primary};
-  text-transform: capitalize;
 `;
 
 const List = styled.ul`
@@ -74,7 +73,7 @@ class Settings extends Component<IProps> {
   };
 
   render() {
-    const { subs, addSub, removeSub, loadSubs, themeName } = this.props;
+    const { subs, addSub, removeSub, loadSubs, themeId } = this.props;
 
     return (
       <Wrapper>
@@ -92,10 +91,10 @@ class Settings extends Component<IProps> {
         </Block>
         <BlockLabel>Theme</BlockLabel>
         <Block>
-          <Select value={themeName} onChange={this.handleThemeChange}>
-            {Object.keys(THEMES).map(name => (
-              <option key={name} value={name}>
-                {name}
+          <Select value={themeId} onChange={this.handleThemeChange}>
+            {Object.keys(THEMES).map(key => (
+              <option key={key} value={key}>
+                {THEMES[key].name}
               </option>
             ))}
           </Select>
@@ -107,7 +106,7 @@ class Settings extends Component<IProps> {
 
 const mapStateToProps = ({ subs, view }: IAppState) => ({
   subs,
-  themeName: view.theme.name,
+  themeId: view.themeId,
 });
 
 const mapDispatchToProps = {

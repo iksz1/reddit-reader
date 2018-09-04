@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { IAppState } from "../reducers/rootReducer";
 import { RouteComponentProps } from "@reach/router";
-import { fetchRequest } from "../actions/creators";
+import { fetchRequest } from "../actions";
 import Comment from "./Comment";
 import MainPost from "./MainPost";
 import styled from "styled-components";
@@ -34,7 +34,7 @@ class Comments extends Component<IProps & PFS & PFD> {
     const { post, comments, isLoading } = this.props;
 
     return (
-      <div>
+      <>
         {post && <MainPost post={post}>{post.title}</MainPost>}
         {isLoading && <Spinner size="2em" />}
         {comments.map((cmtChunk, i) => (
@@ -44,7 +44,7 @@ class Comments extends Component<IProps & PFS & PFD> {
             ))}
           </CommentsChunk>
         ))}
-      </div>
+      </>
     );
   }
 }

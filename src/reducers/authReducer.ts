@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import types from "../actions/types";
+import { TYPES } from "../constants";
 
 export interface IAuth {
   access_token?: string;
@@ -7,9 +7,9 @@ export interface IAuth {
 
 const authReducer: Reducer<IAuth> = (state = {}, { type, payload }) => {
   switch (type) {
-    case types.AUTH_SET:
+    case TYPES.AUTH_SET:
       return { ...state, ...payload };
-    case types.AUTH_CLEAR: // remove this
+    case TYPES.AUTH_CLEAR: // remove this
       return null;
     default:
       return state;

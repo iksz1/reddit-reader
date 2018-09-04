@@ -1,15 +1,15 @@
 import { Reducer } from "redux";
-import types from "../actions/types";
+import { TYPES } from "../constants";
 
 export type Subs = string[];
 
 const subsReducer: Reducer<Subs> = (state = [], { type, payload }) => {
   switch (type) {
-    case types.SUBS_LOAD:
+    case TYPES.SUBS_LOAD:
       return payload;
-    case types.SUBS_ADD:
+    case TYPES.SUBS_ADD:
       return state.concat(payload);
-    case types.SUBS_REMOVE:
+    case TYPES.SUBS_REMOVE:
       return state.filter(sub => sub !== payload);
     default:
       return state;

@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import types from "../actions/types";
+import { TYPES } from "../constants";
 import { IParsedData } from "../utils/responseParser";
 
 export interface IData {
@@ -19,11 +19,11 @@ const initialState = {
 
 const dataReducer: Reducer<IData> = (state = initialState, { type, payload }) => {
   switch (type) {
-    case types.FETCH_REQUEST:
+    case TYPES.FETCH_REQUEST:
       return { ...state, isLoading: true, error: null };
-    case types.FETCH_SUCCESS:
+    case TYPES.FETCH_SUCCESS:
       return { ...initialState, data: payload };
-    case types.FETCH_FAILURE:
+    case TYPES.FETCH_FAILURE:
       return { ...state, error: payload, isLoading: false };
 
     default:

@@ -45,8 +45,6 @@ export interface IParsedData {
 }
 
 const parser = (data: any): IParsedData => {
-  console.log(data);
-
   if (data.data) {
     // subreddit data
     const { children, after, before }: IListing<IPost> = data.data;
@@ -63,7 +61,6 @@ const parser = (data: any): IParsedData => {
 
 // normalize comments
 const flattenComments = (comments: IResource<IComment>[]): IComment[][] => {
-  // return comments.map(({ data }) => (!data.children ? [data, ...flattenReplies(data)] : []));
   const result: IComment[][] = [];
   comments.forEach(({ kind, data }) => {
     if (kind === "t1") {
@@ -73,6 +70,7 @@ const flattenComments = (comments: IResource<IComment>[]): IComment[][] => {
   return result;
 };
 
+// recursively get replies
 const flattenReplies = (comment: IComment): IComment[] => {
   if (!comment.replies) return [];
 

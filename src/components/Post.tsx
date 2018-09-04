@@ -46,13 +46,11 @@ const Post = ({ post, delay }: IProps) => {
 
   return (
     <Wrapper style={{ animationDelay: delay + "ms" }}>
-      <div>
-        <PostTitle to={post.permalink}>{post.title}</PostTitle>
-        <PostMeta>
-          <b>{post.score}</b> points | posted {time} by {post.author} | <b>{post.num_comments}</b>{" "}
-          comments
-        </PostMeta>
-      </div>
+      <PostTitle to={post.permalink}>{post.title}</PostTitle>
+      <PostMeta>
+        <b>{post.score}</b> points | posted {time} by {post.author} | <b>{post.num_comments}</b>{" "}
+        comments
+      </PostMeta>
     </Wrapper>
   );
 };
