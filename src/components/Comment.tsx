@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { IComment } from "../utils/responseParser";
 import styled from "styled-components";
 import { darken } from "polished";
@@ -63,18 +63,14 @@ interface IProps {
   comment: IComment;
 }
 
-export default class Comment extends Component<IProps> {
-  render() {
-    const { comment } = this.props;
+const Comment = ({ comment }: IProps) => (
+  <Wrapper style={{ marginLeft: comment.depth + "em" }}>
+    <CommentMeta>
+      <CommentScore>{comment.score}</CommentScore>
+      <CommentAuthor>{comment.author}</CommentAuthor>
+    </CommentMeta>
+    <CommentBody dangerouslySetInnerHTML={{ __html: comment.body_html }} />
+  </Wrapper>
+);
 
-    return (
-      <Wrapper style={{ marginLeft: comment.depth + "em" }}>
-        <CommentMeta>
-          <CommentScore>{comment.score}</CommentScore>
-          <CommentAuthor>{comment.author}</CommentAuthor>
-        </CommentMeta>
-        <CommentBody dangerouslySetInnerHTML={{ __html: comment.body_html }} />
-      </Wrapper>
-    );
-  }
-}
+export default Comment;

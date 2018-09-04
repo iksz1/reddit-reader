@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 import { IPost } from "../utils/responseParser";
 import { CommentBody, CommentMeta } from "./Comment";
@@ -33,24 +33,23 @@ interface IProps {
   post: IPost;
 }
 
-export default class MainPost extends Component<IProps> {
-  render() {
-    const { post } = this.props;
-    const time = timeago().format(post.created_utc * 1000);
+const MainPost = ({ post }: IProps) => {
+  const time = timeago().format(post.created_utc * 1000);
 
-    return (
-      <Wrapper>
-        <PostTitle>{post.title}</PostTitle>
-        <PostMeta>
-          posted by <strong>{post.author}</strong> {time}
-        </PostMeta>
-        {!post.is_self && (
-          <ExternalLink href={post.url} target="_blank" rel="noopener">
-            <p>{post.url}</p>
-          </ExternalLink>
-        )}
-        <PostBody dangerouslySetInnerHTML={{ __html: post.selftext_html }} />
-      </Wrapper>
-    );
-  }
-}
+  return (
+    <Wrapper>
+      <PostTitle>{post.title}</PostTitle>
+      <PostMeta>
+        posted by <strong>{post.author}</strong> {time}
+      </PostMeta>
+      {!post.is_self && (
+        <ExternalLink href={post.url} target="_blank" rel="noopener">
+          <p>{post.url}</p>
+        </ExternalLink>
+      )}
+      <PostBody dangerouslySetInnerHTML={{ __html: post.selftext_html }} />
+    </Wrapper>
+  );
+};
+
+export default MainPost;

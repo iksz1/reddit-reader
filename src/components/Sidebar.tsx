@@ -71,28 +71,22 @@ type PFD = typeof mapDispatchToProps;
 
 interface IProps extends PFS, PFD {}
 
-class Sidebar extends Component<IProps> {
-  render() {
-    const { subs, isVisible, toggleVisibility } = this.props;
-
-    return (
-      <>
-        <Trigger onClick={toggleVisibility}>#</Trigger>
-        <Wrapper isVisible={isVisible} aria-hidden={!isVisible}>
-          <List>
-            {subs.map(sub => (
-              <li key={sub}>
-                <SLink to={`/r/${sub}`} tabIndex={isVisible ? 0 : -1} getProps={isActive}>
-                  {sub}
-                </SLink>
-              </li>
-            ))}
-          </List>
-        </Wrapper>
-      </>
-    );
-  }
-}
+const Sidebar = ({ subs, isVisible, toggleVisibility }: IProps) => (
+  <>
+    <Trigger onClick={toggleVisibility}>#</Trigger>
+    <Wrapper isVisible={isVisible} aria-hidden={!isVisible}>
+      <List>
+        {subs.map(sub => (
+          <li key={sub}>
+            <SLink to={`/r/${sub}`} tabIndex={isVisible ? 0 : -1} getProps={isActive}>
+              {sub}
+            </SLink>
+          </li>
+        ))}
+      </List>
+    </Wrapper>
+  </>
+);
 
 const mapStateToProps = ({ subs, view }: IAppState) => ({
   subs,
