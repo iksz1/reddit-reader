@@ -7,6 +7,7 @@ import Comment from "./Comment";
 import MainPost from "./MainPost";
 import styled from "styled-components";
 import { Spinner } from "./Loader";
+import ErrorMessage from "./ErrorMessage";
 
 const CommentsChunk = styled.div`
   font-size: 1.6rem;
@@ -31,7 +32,9 @@ class Comments extends Component<IProps & PFS & PFD> {
   }
 
   render() {
-    const { post, comments, isLoading } = this.props;
+    const { post, comments, isLoading, error } = this.props;
+
+    if (error) return <ErrorMessage message={error.message} />;
 
     return (
       <>
@@ -53,6 +56,7 @@ const mapStateToProps = ({ data }: IAppState, { postId }: IProps) => ({
   post: data.data.posts.find(post => post.id === postId),
   comments: data.data.comments,
   isLoading: data.isLoading,
+  error: data.error,
 });
 
 const mapDispatchToProps = {

@@ -5,6 +5,7 @@ import { fetchRequest } from "../store/ducks/data";
 import { IAppState } from "../store/ducks";
 import { RouteComponentProps } from "@reach/router";
 import { Spinner } from "./Loader";
+import ErrorMessage from "./ErrorMessage";
 
 type PFS = ReturnType<typeof mapStateToProps>;
 type PFD = typeof mapDispatchToProps;
@@ -30,7 +31,9 @@ class Subreddit extends Component<IProps> {
   };
 
   render() {
-    const { subreddit, posts, isLoading } = this.props;
+    const { subreddit, posts, isLoading, error } = this.props;
+
+    if (error) return <ErrorMessage message={error.message} />;
 
     return (
       <>
@@ -49,6 +52,7 @@ class Subreddit extends Component<IProps> {
 const mapStateToProps = ({ data }: IAppState) => ({
   posts: data.data.posts,
   isLoading: data.isLoading,
+  error: data.error,
 });
 
 const mapDispatchToProps = {

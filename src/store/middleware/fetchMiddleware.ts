@@ -23,7 +23,7 @@ export const fetchMiddleware: Middleware = ({ getState, dispatch }) => next => a
         if (response.ok) {
           return response.json();
         }
-        throw new Error(response.statusText);
+        throw new Error(String(response.status));
       })
       .then(json => {
         const data = parser(json);
@@ -31,7 +31,7 @@ export const fetchMiddleware: Middleware = ({ getState, dispatch }) => next => a
         dispatch(fetchSuccess(data));
       })
       .catch(error => {
-        dispatch(fetchFailure(error.message));
+        dispatch(fetchFailure(error));
       });
   }
   return next(action);
