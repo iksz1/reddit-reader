@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import { fetchMiddleware } from "./middleware/fetchMiddleware";
 import { persistMiddleware } from "./middleware/persistMiddleware";
-import reducer from "./reducers/rootReducer";
-import { THEMES, DEFAULT_THEME, DEFAULT_SUBS } from "./constants";
+import reducer from "./ducks";
+import { THEMES, DEFAULT_THEME, DEFAULT_SUBS } from "../constants";
 import { getItem } from "./utils/localStorage";
 
 const themeId = getItem("_theme");

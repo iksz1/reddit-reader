@@ -1,14 +1,13 @@
-import { TYPES } from "../constants";
 import { Middleware } from "redux";
 import parser from "../utils/responseParser";
-import { setCache, IFetchRequest, fetchSuccess, fetchFailure } from "../actions";
-import { Cache } from "../reducers/cacheReducer";
+import { IFetchRequest, fetchSuccess, fetchFailure, FETCH_REQUEST } from "../ducks/data";
+import { setCache, Cache } from "../ducks/cache";
 
 const BASE_URL = `https://www.reddit.com`;
 const BASE_PARAMS = `.json?raw_json=1`;
 
 export const fetchMiddleware: Middleware = ({ getState, dispatch }) => next => action => {
-  if (action.type === TYPES.FETCH_REQUEST) {
+  if (action.type === FETCH_REQUEST) {
     const { uri }: IFetchRequest = action.payload;
 
     // serve from cache if it's available

@@ -7,7 +7,7 @@ import Subreddit from "./Subreddit";
 import Comments from "./Comments";
 import Sidebar from "./Sidebar";
 import Settings from "./Settings";
-import { IAppState } from "../reducers/rootReducer";
+import { IAppState } from "../store/ducks";
 import { THEMES } from "../constants";
 
 const Wrapper = styled.div`

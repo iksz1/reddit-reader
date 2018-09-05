@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { IAppState } from "../reducers/rootReducer";
+import { IAppState } from "../store/ducks";
 import { RouteComponentProps } from "@reach/router";
-import * as actions from "../actions";
+import { addSub, removeSub } from "../store/ducks/subs";
+import { changeTheme } from "../store/ducks/view";
 import AddSubForm from "./AddSubForm";
 import { THEMES } from "../constants";
 
@@ -73,7 +74,7 @@ class Settings extends Component<IProps> {
   };
 
   render() {
-    const { subs, addSub, removeSub, loadSubs, themeId } = this.props;
+    const { subs, addSub, removeSub, themeId } = this.props; // tslint:disable-line
 
     return (
       <Wrapper>
@@ -110,10 +111,9 @@ const mapStateToProps = ({ subs, view }: IAppState) => ({
 });
 
 const mapDispatchToProps = {
-  addSub: actions.addSub,
-  removeSub: actions.removeSub,
-  loadSubs: actions.loadSubs,
-  changeTheme: actions.changeTheme,
+  addSub,
+  removeSub,
+  changeTheme,
 };
 
 export default connect(

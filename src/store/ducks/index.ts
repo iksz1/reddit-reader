@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import auth, { IAuth } from "./authReducer";
-import subs, { Subs } from "./subsReducer";
-import data, { IData } from "./dataReducer";
-import cache, { Cache } from "./cacheReducer";
-import view, { IView } from "./viewReducer";
+import auth, { IAuth } from "./auth";
+import subs, { Subs } from "./subs";
+import data, { IData } from "./data";
+import cache, { Cache } from "./cache";
+import view, { IView } from "./view";
 
 export interface IAppState {
   auth: IAuth;

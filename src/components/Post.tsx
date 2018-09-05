@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { IPost } from "../utils/responseParser";
+import { IPost } from "../store/utils/responseParser";
 import { Link } from "@reach/router";
 import timeago from "timeago.js";
 

@@ -1,16 +1,17 @@
-import { TYPES } from "../constants";
 import { Middleware } from "redux";
 import { setItem } from "../utils/localStorage";
+import { SUBS_ADD, SUBS_REMOVE } from "../ducks/subs";
+import { VIEW_CHANGE_THEME } from "../ducks/view";
 
 // saves changes in localStorage
 export const persistMiddleware: Middleware = ({ getState }) => next => action => {
   switch (action.type) {
-    case TYPES.SUBS_ADD:
-    case TYPES.SUBS_REMOVE:
+    case SUBS_ADD:
+    case SUBS_REMOVE:
       next(action);
       setItem("_subs", JSON.stringify(getState().subs));
       return;
-    case TYPES.VIEW_CHANGE_THEME:
+    case VIEW_CHANGE_THEME:
       setItem("_theme", action.payload);
       return next(action);
 

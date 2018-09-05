@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Post from "./Post";
-import { fetchRequest } from "../actions";
-import { IAppState } from "../reducers/rootReducer";
+import { fetchRequest } from "../store/ducks/data";
+import { IAppState } from "../store/ducks";
 import { RouteComponentProps } from "@reach/router";
 import { Spinner } from "./Loader";
 

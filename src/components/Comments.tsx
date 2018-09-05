@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { IAppState } from "../reducers/rootReducer";
+import { IAppState } from "../store/ducks";
 import { RouteComponentProps } from "@reach/router";
-import { fetchRequest } from "../actions";
+import { fetchRequest } from "../store/ducks/data";
 import Comment from "./Comment";
 import MainPost from "./MainPost";
 import styled from "styled-components";

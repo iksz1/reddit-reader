@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { IAppState } from "../reducers/rootReducer";
+import { IAppState } from "../store/ducks";
 import { LinkGetProps } from "@reach/router";
 import { Link } from "@reach/router";
-import { toggleSidebar } from "../actions";
+import { toggleSidebar } from "../store/ducks/view";
 
 interface IWrapperProps {
   isVisible?: boolean;
