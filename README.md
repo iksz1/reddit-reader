@@ -1,17 +1,23 @@
-## Reddit reader
+# Reddit reader
 
 Simple reddit client.
 
-### Packages used
+Demo: [https://reddit-reader.netlify.com/](https://reddit-reader.netlify.com/)
 
-- [React](https://github.com/facebook/react)
-- [Redux](https://github.com/reduxjs/redux)
-- [styled-components](https://github.com/styled-components/styled-components)
-- [Reach Router](https://github.com/reach/router)
+### Installation
 
-### How to use
+```sh
+git clone https://github.com/iksz1/reddit-reader.git
+cd reddit-reader
+npm install
+```
 
-- `npm start` - start development server
-- `npm run build` - create production ready bundle
-- `npm test` - run Jest
-- `npm run tsc` - type check
+### Usage
+
+`npm start` - start development server
+
+`npm run build` - create production ready bundle
+
+`npm test` - run Jest
+
+`npm run tsc` - type check
