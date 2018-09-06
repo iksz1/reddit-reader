@@ -69,7 +69,7 @@ module.exports = (env, argv) => {
       publicPath: "/",
     },
     devtool: isProduction ? false : "eval-source-map",
-    resolve: { extensions: [".ts", ".tsx", ".js", ".json"] },
+    resolve: { extensions: [".wasm", ".mjs", ".ts", ".tsx", ".js", ".json"] },
     module: {
       rules: [
         {

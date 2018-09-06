@@ -1,16 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { IAppState } from "../store/ducks";
 import { LinkGetProps } from "@reach/router";
 import { Link } from "@reach/router";
 import { toggleSidebar } from "../store/ducks/view";
+import { FiMenu } from "react-icons/fi";
+import { MdSettings, MdClose } from "react-icons/md";
 
-interface IWrapperProps {
-  isVisible?: boolean;
-}
-
-const Wrapper = styled.div<IWrapperProps>`
+const Wrapper = styled.div<{ isVisible?: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -28,22 +26,27 @@ const Wrapper = styled.div<IWrapperProps>`
   transform: translateX(${p => (p.isVisible ? "0" : "calc(var(--sidebar-width) * -1)")});
 `;
 
-const Trigger = styled.button`
+const Trigger = styled.button<{ active?: boolean }>`
   z-index: 2;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 4rem;
-  height: 4rem;
+  top: 0.5em;
+  left: 0.5em;
+  width: 1em;
+  height: 1em;
+  padding: 0;
   font-size: 2rem;
   font-weight: bold;
   background: inherit;
   border: none;
   color: inherit;
+  transition: transform 200ms ease-out;
+  transform: translateX(${p => (p.active ? "calc(var(--sidebar-width) - 4.2rem)" : 0)});
 `;
 
 const List = styled.ul`
-  padding-left: 1em;
+  margin-top: 2em;
+  padding: 0;
+  overflow-x: hidden;
   list-style: none;
   font-weight: bold;
   font-size: 1.4rem;
@@ -61,6 +64,15 @@ const SLink = styled(Link)`
   }
 `;
 
+const SettingsLink = styled(SLink)`
+  position: fixed;
+  font-size: 2rem;
+  width: 1em;
+  height: 1em;
+  top: 0.5em;
+  left: 0.5em;
+`;
+
 // apply style to active link
 const isActive = ({ isCurrent }: LinkGetProps) => {
   return isCurrent ? { style: { textDecoration: "underline" } } : {};
@@ -73,8 +85,18 @@ interface IProps extends PFS, PFD {}
 
 const Sidebar = ({ subs, isVisible, toggleVisibility }: IProps) => (
   <>
-    <Trigger onClick={toggleVisibility}>#</Trigger>
+    <Trigger onClick={toggleVisibility} active={isVisible} aria-label="toggle menu">
+      {isVisible ? <MdClose /> : <FiMenu />}
+    </Trigger>
     <Wrapper isVisible={isVisible} aria-hidden={!isVisible}>
+      <SettingsLink
+        to="/settings"
+        tabIndex={isVisible ? 0 : -1}
+        getProps={isActive}
+        aria-label="settings"
+      >
+        <MdSettings />
+      </SettingsLink>
       <List>
         {subs.map(sub => (
           <li key={sub}>
