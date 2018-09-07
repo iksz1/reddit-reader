@@ -9,6 +9,7 @@ import Sidebar from "./Sidebar";
 import Settings from "./Settings";
 import { IAppState } from "../store/ducks";
 import { THEMES } from "../constants";
+import Home from "./Home";
 
 const Wrapper = styled.div`
   display: flex;
@@ -44,6 +45,7 @@ const App = ({ isSidebarVisible, themeId }: PFS) => (
       <Sidebar />
       <MainContent shareSpace={isSidebarVisible}>
         <Router>
+          <Home path="/" />
           <Subreddit path="/r/:subreddit" />
           <Comments path="/r/:subreddit/comments/:postId/*" />
           <Settings path="/settings" />
