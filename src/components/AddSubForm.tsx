@@ -20,7 +20,7 @@ const Input = styled.input`
 const Button = styled.button`
   color: ${p => p.theme.bg};
   background: ${p => p.theme.primary};
-  border: 1px solid ${p => p.theme.primary}
+  border: 1px solid ${p => p.theme.primary};
   border-left: none;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;

@@ -10,29 +10,27 @@ import Settings from "./Settings";
 import { IAppState } from "../store/ducks";
 import { THEMES } from "../constants";
 import Home from "./Home";
+import Header from "./Header";
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
+  flex-flow: column;
+  align-items: center;
   min-height: 100vh;
   overflow: hidden;
   background: ${p => p.theme.bg};
   color: ${p => p.theme.primary};
 `;
 
-interface IMainContentProps {
-  shareSpace: boolean;
-}
-
-const MainContent = styled.div<IMainContentProps>`
-  flex: auto;
+const MainContent = styled.div<{ shareSpace: boolean }>`
   max-width: var(--content-width);
   padding: 1em;
   transition: transform 200ms ease-out;
-  @media (min-width: 600px) {
+  @media (max-width: 1120px) {
     margin-left: ${p => (p.shareSpace ? "var(--sidebar-width)" : 0)};
   }
-  @media (max-width: 599px) {
+  @media (max-width: 678px) {
+    margin-left: 0;
     transform: translateX(${p => (p.shareSpace ? "var(--sidebar-width)" : 0)});
   }
 `;
@@ -42,6 +40,7 @@ type PFS = ReturnType<typeof mapStateToProps>;
 const App = ({ isSidebarVisible, themeId }: PFS) => (
   <ThemeProvider theme={THEMES[themeId]}>
     <Wrapper>
+      <Header />
       <Sidebar />
       <MainContent shareSpace={isSidebarVisible}>
         <Router>

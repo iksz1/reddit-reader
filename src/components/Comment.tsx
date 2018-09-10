@@ -34,6 +34,7 @@ export const CommentBody = styled.div`
   }
   a {
     color: inherit;
+    word-break: break-all;
   }
   hr {
     border: 1px dashed ${p => p.theme.primary};

@@ -21,6 +21,7 @@ const ExternalLink = styled.a`
   font-size: 1.8rem;
   font-weight: bold;
   color: inherit;
+  word-break: break-all;
 `;
 
 const PostBody = styled(CommentBody)`

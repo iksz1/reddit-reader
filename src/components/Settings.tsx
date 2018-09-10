@@ -55,6 +55,7 @@ const XBtn = styled.button`
   color: inherit;
   font-weight: bold;
   border: ${p => p.theme.primary};
+
   ${LI}:hover & {
     display: block;
   }

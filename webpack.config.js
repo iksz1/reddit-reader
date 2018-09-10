@@ -46,6 +46,7 @@ const manifestPlugin = new WebpackPwaManifest({
   description: "Simple reddit client.",
   background_color: "#ffffff",
   theme_color: "#000000",
+  orientation: "any",
   icons: [
     {
       src: path.resolve("img/reddit.png"),

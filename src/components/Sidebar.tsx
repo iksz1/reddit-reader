@@ -6,7 +6,7 @@ import { LinkGetProps } from "@reach/router";
 import { Link } from "@reach/router";
 import { toggleSidebar } from "../store/ducks/view";
 import { FiMenu } from "react-icons/fi";
-import { MdSettings, MdClose } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 
 const Wrapper = styled.div<{ isVisible?: boolean }>`
   position: fixed;
@@ -18,9 +18,9 @@ const Wrapper = styled.div<{ isVisible?: boolean }>`
   z-index: 1;
   padding: 1em 2em;
   overflow-y: auto;
-  background: ${p => p.theme.bg};
+  background: ${p => p.theme.primary};
+  color: ${p => p.theme.bg};
   font-family: "Roboto Condensed", sans-serif;
-  border-right: 1px solid ${p => p.theme.primary};
   text-align: right;
   transition: transform 200ms ease-out;
   transform: translateX(${p => (p.isVisible ? "0" : "calc(var(--sidebar-width) * -1)")});
@@ -31,20 +31,21 @@ const Trigger = styled.button<{ active?: boolean }>`
   position: fixed;
   top: 0.5em;
   left: 0.5em;
-  width: 1em;
-  height: 1em;
+  width: 1.5em;
+  height: 1.5em;
   padding: 0;
   font-size: 2rem;
   font-weight: bold;
-  background: inherit;
+  background: ${p => (p.active ? "transparent" : "inherit")};
   border: none;
-  color: inherit;
+  color: ${p => (p.active ? p.theme.bg : "inherit")};
+  cursor: pointer;
   transition: transform 200ms ease-out;
-  transform: translateX(${p => (p.active ? "calc(var(--sidebar-width) - 4.2rem)" : 0)});
+  // transform: translateX(${p => (p.active ? "calc(var(--sidebar-width) - 4.2rem)" : 0)});
 `;
 
 const List = styled.ul`
-  margin-top: 2em;
+  /* margin-top: 2em; */
   padding: 0;
   overflow-x: hidden;
   list-style: none;
@@ -66,6 +67,9 @@ const SLink = styled(Link)`
 
 const SettingsLink = styled(SLink)`
   position: fixed;
+  background: ${p => p.theme.bg};
+  color: ${p => p.theme.primary};
+  border-radius: 50%;
   font-size: 2rem;
   width: 1em;
   height: 1em;
@@ -89,14 +93,6 @@ const Sidebar = ({ subs, isVisible, toggleVisibility }: IProps) => (
       {isVisible ? <MdClose /> : <FiMenu />}
     </Trigger>
     <Wrapper isVisible={isVisible} aria-hidden={!isVisible}>
-      <SettingsLink
-        to="/settings"
-        tabIndex={isVisible ? 0 : -1}
-        getProps={isActive}
-        aria-label="settings"
-      >
-        <MdSettings />
-      </SettingsLink>
       <List>
         {subs.map(sub => (
           <li key={sub}>
