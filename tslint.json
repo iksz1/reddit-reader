@@ -22,6 +22,7 @@
     "semicolon": [true, "always", "ignore-bound-class-methods"],
     "curly": false,
     "jsx-no-lambda": false,
-    "array-type": false
+    "array-type": false,
+    "jsx-boolean-value": false
   }
 }
