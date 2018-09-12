@@ -6,7 +6,7 @@ import styled, { ThemeProvider } from "styled-components";
 import Subreddit from "./Subreddit";
 import Comments from "./Comments";
 import Sidebar from "./Sidebar";
-import Settings from "./Settings";
+import Settings from "./settings/Settings";
 import { IAppState } from "../store/ducks";
 import { THEMES } from "../constants";
 import Home from "./Home";
