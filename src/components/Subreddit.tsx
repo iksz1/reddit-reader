@@ -1,65 +1,24 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { withFetching, IWithFetchingProps } from "./hoc/withFetching";
 import Post from "./Post";
-import { fetchRequest } from "../store/ducks/data";
-import { IAppState } from "../store/ducks";
-import { RouteComponentProps } from "@reach/router";
 import { Spinner } from "./Loader";
-import ErrorMessage from "./ErrorMessage";
 
-type PFS = ReturnType<typeof mapStateToProps>;
-type PFD = typeof mapDispatchToProps;
-
-interface IProps extends PFS, PFD, RouteComponentProps {
+interface IProps extends IWithFetchingProps {
   subreddit?: string;
 }
 
-class Subreddit extends Component<IProps> {
-  componentDidMount() {
-    this.loadData();
-  }
-
-  componentDidUpdate(prevProps: IProps) {
-    if (this.props.subreddit !== prevProps.subreddit) {
-      this.loadData();
-    }
-  }
-
-  loadData = () => {
-    const { uri, fetchPosts } = this.props;
-    fetchPosts({ uri: uri as string });
-  };
-
-  render() {
-    const { subreddit, posts, isLoading, error } = this.props;
-
-    if (error) return <ErrorMessage message={error.message} />;
-
-    return (
-      <>
-        <h1>
-          {`r/${subreddit}`}
-          {isLoading && <Spinner style={{ marginLeft: "0.5em" }} />}
-        </h1>
-        {posts.map((post, i) => (
-          <Post key={post.id} post={post} delay={(i + 1) * 50} />
-        ))}
-      </>
-    );
-  }
-}
-
-const mapStateToProps = ({ data }: IAppState) => ({
-  posts: data.data.posts,
-  isLoading: data.isLoading,
-  error: data.error,
-});
-
-const mapDispatchToProps = {
-  fetchPosts: fetchRequest,
+const Subreddit = ({ data: { posts }, isLoading, subreddit }: IProps) => {
+  return (
+    <>
+      <h1>
+        {`r/${subreddit}`}
+        {isLoading && <Spinner style={{ marginLeft: "0.5em" }} />}
+      </h1>
+      {posts.map((post, i) => (
+        <Post key={post.id} post={post} delay={(i + 1) * 50} />
+      ))}
+    </>
+  );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Subreddit);
+export default withFetching(Subreddit);

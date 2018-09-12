@@ -1,13 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { IAppState } from "../store/ducks";
-import { RouteComponentProps } from "@reach/router";
-import { fetchRequest } from "../store/ducks/data";
+import React from "react";
+import styled from "styled-components";
+import { withFetching, IWithFetchingProps } from "./hoc/withFetching";
 import Comment from "./Comment";
 import MainPost from "./MainPost";
-import styled from "styled-components";
 import { Spinner } from "./Loader";
-import ErrorMessage from "./ErrorMessage";
 
 const CommentsChunk = styled.div`
   font-size: 1.6rem;
@@ -18,52 +14,27 @@ const CommentsChunk = styled.div`
   }
 `;
 
-type PFS = ReturnType<typeof mapStateToProps>;
-type PFD = typeof mapDispatchToProps;
-
-interface IProps extends RouteComponentProps {
+interface IProps extends IWithFetchingProps {
   postId?: string;
 }
 
-class Comments extends Component<IProps & PFS & PFD> {
-  componentDidMount() {
-    const { uri, fetchComments } = this.props;
-    fetchComments({ uri: uri as string });
-  }
+const Comments = ({ data, isLoading, postId }: IProps) => {
+  const { posts, comments } = data;
+  const mainPost = posts.find(post => post.id === postId);
 
-  render() {
-    const { post, comments, isLoading, error } = this.props;
-
-    if (error) return <ErrorMessage message={error.message} />;
-
-    return (
-      <>
-        {post && <MainPost post={post}>{post.title}</MainPost>}
-        {isLoading && <Spinner size="2em" />}
-        {comments.map((cmtChunk, i) => (
-          <CommentsChunk key={i}>
-            {cmtChunk.map(cmt => (
-              <Comment key={cmt.id} comment={cmt} />
-            ))}
-          </CommentsChunk>
-        ))}
-      </>
-    );
-  }
-}
-
-const mapStateToProps = ({ data }: IAppState, { postId }: IProps) => ({
-  post: data.data.posts.find(post => post.id === postId),
-  comments: data.data.comments,
-  isLoading: data.isLoading,
-  error: data.error,
-});
-
-const mapDispatchToProps = {
-  fetchComments: fetchRequest,
+  return (
+    <>
+      {mainPost && <MainPost post={mainPost} />}
+      {isLoading && <Spinner size="2em" />}
+      {comments.map((cmtChunk, i) => (
+        <CommentsChunk key={i}>
+          {cmtChunk.map(cmt => (
+            <Comment key={cmt.id} comment={cmt} />
+          ))}
+        </CommentsChunk>
+      ))}
+    </>
+  );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Comments);
+export default withFetching(Comments);
