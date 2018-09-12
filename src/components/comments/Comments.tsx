@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { withFetching, IWithFetchingProps } from "./hoc/withFetching";
+import { withFetching, IWithFetchingProps } from "../hoc/withFetching";
 import Comment from "./Comment";
 import MainPost from "./MainPost";
-import { Spinner } from "./Loader";
+import { Spinner } from "../shared/Spinner";
 
 const CommentsChunk = styled.div`
   font-size: 1.6rem;

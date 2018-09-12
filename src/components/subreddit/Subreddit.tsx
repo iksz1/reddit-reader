@@ -1,7 +1,7 @@
 import React from "react";
-import { withFetching, IWithFetchingProps } from "./hoc/withFetching";
+import { withFetching, IWithFetchingProps } from "../hoc/withFetching";
 import Post from "./Post";
-import { Spinner } from "./Loader";
+import { Spinner } from "../shared/Spinner";
 
 interface IProps extends IWithFetchingProps {
   subreddit?: string;

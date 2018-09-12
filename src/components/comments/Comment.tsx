@@ -1,5 +1,5 @@
 import React from "react";
-import { IComment } from "../store/utils/responseParser";
+import { IComment } from "../../store/utils/responseParser";
 import styled from "styled-components";
 import { darken } from "polished";
 

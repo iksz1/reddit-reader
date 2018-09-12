@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { IAppState } from "../../store/ducks";
 import { fetchRequest } from "../../store/ducks/data";
 import { RouteComponentProps } from "@reach/router";
-import ErrorMessage from "../ErrorMessage";
+import ErrorMessage from "../shared/ErrorMessage";
 
 const mapStateToProps = ({ data }: IAppState) => ({
   data: data.data,
