@@ -1,12 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { IAppState } from "../store/ducks";
-import { LinkGetProps } from "@reach/router";
-import { Link } from "@reach/router";
-import { toggleSidebar } from "../store/ducks/view";
-import { FiMenu } from "react-icons/fi";
-import { MdClose } from "react-icons/md";
+import { IAppState } from "../../store/ducks";
+import { Link, LinkGetProps } from "@reach/router";
+import { toggleSidebar } from "../../store/ducks/view";
+import Trigger from "./Trigger";
 
 const Wrapper = styled.aside<{ isVisible?: boolean }>`
   position: fixed;
@@ -24,28 +22,20 @@ const Wrapper = styled.aside<{ isVisible?: boolean }>`
   text-align: right;
   transition: transform 200ms ease-out;
   transform: translateX(${p => (p.isVisible ? "0" : "calc(var(--sidebar-width) * -1)")});
-`;
-
-const Trigger = styled.button<{ active?: boolean }>`
-  z-index: 2;
-  position: fixed;
-  top: 0.5em;
-  left: 0.5em;
-  width: 1.5em;
-  height: 1.5em;
-  padding: 0;
-  font-size: 2rem;
-  font-weight: bold;
-  background: ${p => (p.active ? "transparent" : "inherit")};
-  border: none;
-  color: ${p => (p.active ? p.theme.bg : "inherit")};
-  cursor: pointer;
-  transition: transform 200ms ease-out;
-  // transform: translateX(${p => (p.active ? "calc(var(--sidebar-width) - 4.2rem)" : 0)});
+  @media (max-width: 1120px) {
+    & ~ main {
+      margin-left: ${p => (p.isVisible ? "var(--sidebar-width)" : "auto")};
+    }
+  }
+  @media (max-width: 678px) {
+    & ~ main {
+      margin-left: auto;
+      transform: translateX(${p => (p.isVisible ? "var(--sidebar-width)" : 0)});
+    }
+  }
 `;
 
 const List = styled.ul`
-  /* margin-top: 2em; */
   padding: 0;
   overflow-x: hidden;
   list-style: none;
@@ -65,18 +55,6 @@ const SLink = styled(Link)`
   }
 `;
 
-const SettingsLink = styled(SLink)`
-  position: fixed;
-  background: ${p => p.theme.bg};
-  color: ${p => p.theme.primary};
-  border-radius: 50%;
-  font-size: 2rem;
-  width: 1em;
-  height: 1em;
-  top: 0.5em;
-  left: 0.5em;
-`;
-
 // apply style to active link
 const isActive = ({ isCurrent }: LinkGetProps) => {
   return isCurrent ? { style: { textDecoration: "underline" } } : {};
@@ -89,9 +67,7 @@ interface IProps extends PFS, PFD {}
 
 const Sidebar = ({ subs, isVisible, toggleVisibility }: IProps) => (
   <>
-    <Trigger onClick={toggleVisibility} active={isVisible} aria-label="toggle menu">
-      {isVisible ? <MdClose /> : <FiMenu />}
-    </Trigger>
+    <Trigger onClick={toggleVisibility} isActive={isVisible} />
     <Wrapper isVisible={isVisible} aria-hidden={!isVisible}>
       <List>
         {subs.map(sub => (
