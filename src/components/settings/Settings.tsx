@@ -8,18 +8,14 @@ import { changeTheme } from "../../store/ducks/view";
 import SubsBlock from "./SubsBlock";
 import ThemeBlock from "./ThemeBlock";
 
-const Wrapper = styled.div`
-  /* width: 100%; */
-`;
-
 const Block = styled.div`
   max-width: 30rem;
-  margin: auto;
 `;
 
-const BlockLabel = styled.h2`
+const BlockLabel = styled.h4`
+  max-width: 30rem;
   margin: 1.5em 0;
-  border-bottom: 1px solid ${p => p.theme.primary};
+  border-bottom: 2px solid ${p => p.theme.primary};
 `;
 
 type PFS = ReturnType<typeof mapStateToProps>;
@@ -32,16 +28,16 @@ class Settings extends Component<IProps> {
     const { subs, addSub, removeSub, themeId, changeTheme } = this.props; // tslint:disable-line
 
     return (
-      <Wrapper>
-        <BlockLabel>Subreddits</BlockLabel>
+      <>
+        <BlockLabel>SUBREDDITS</BlockLabel>
         <Block>
           <SubsBlock subs={subs} onAdd={addSub} onRemove={removeSub} />
         </Block>
-        <BlockLabel>Theme</BlockLabel>
+        <BlockLabel>THEME</BlockLabel>
         <Block>
           <ThemeBlock themeId={themeId} onThemeChange={changeTheme} />
         </Block>
-      </Wrapper>
+      </>
     );
   }
 }

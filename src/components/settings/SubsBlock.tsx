@@ -17,6 +17,9 @@ const LI = styled.li`
   position: relative;
   padding: 0.5em;
   text-transform: uppercase;
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const XBtn = styled.button`

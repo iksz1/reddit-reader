@@ -1,4 +1,3 @@
-import React from "react";
 import styled, { keyframes } from "styled-components";
 
 const spin = keyframes`
@@ -8,13 +7,17 @@ const spin = keyframes`
 
 interface IProps {
   size?: string;
+  centered?: boolean;
 }
 
-export const Spinner = styled.div<IProps>`
-  display: inline-flex;
-  width: ${p => p.size || "1em"};
-  height: ${p => p.size || "1em"};
-  border: 0.3rem solid transparent;
+export const Spinner = styled.div.attrs<IProps>({
+  size: (p: IProps) => p.size || "1em",
+})`
+  width: ${p => p.size};
+  height: ${p => p.size};
+  margin: ${p => (p.centered ? "0 auto" : 0)};
+  border-width: calc(${p => p.size} / 5);
+  border-style: solid;
   border-color: ${p => p.theme.primary} transparent;
   border-radius: 50%;
   animation: ${spin} 1s linear infinite;

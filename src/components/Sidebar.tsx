@@ -8,7 +8,7 @@ import { toggleSidebar } from "../store/ducks/view";
 import { FiMenu } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 
-const Wrapper = styled.div<{ isVisible?: boolean }>`
+const Wrapper = styled.aside<{ isVisible?: boolean }>`
   position: fixed;
   top: 0;
   left: 0;

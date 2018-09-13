@@ -13,9 +13,6 @@ import Home from "./Home";
 import Header from "./Header";
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-flow: column;
-  align-items: center;
   min-height: 100vh;
   overflow: hidden;
   background: ${p => p.theme.bg};
@@ -23,14 +20,15 @@ const Wrapper = styled.div`
 `;
 
 const MainContent = styled.div<{ shareSpace: boolean }>`
+  margin: 0 auto;
   max-width: var(--content-width);
   padding: 1em;
   transition: transform 200ms ease-out;
   @media (max-width: 1120px) {
-    margin-left: ${p => (p.shareSpace ? "var(--sidebar-width)" : 0)};
+    margin-left: ${p => (p.shareSpace ? "var(--sidebar-width)" : "auto")};
   }
   @media (max-width: 678px) {
-    margin-left: 0;
+    margin-left: auto;
     transform: translateX(${p => (p.shareSpace ? "var(--sidebar-width)" : 0)});
   }
 `;

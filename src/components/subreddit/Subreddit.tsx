@@ -1,7 +1,16 @@
 import React from "react";
+import styled from "styled-components";
 import { withFetching, IWithFetchingProps } from "../hoc/withFetching";
 import Post from "./Post";
 import { Spinner } from "../shared/Spinner";
+
+const Title = styled.h1`
+  display: flex;
+  align-items: center;
+  ${Spinner} {
+    margin-left: 0.5em;
+  }
+`;
 
 interface IProps extends IWithFetchingProps {
   subreddit?: string;
@@ -10,12 +19,12 @@ interface IProps extends IWithFetchingProps {
 const Subreddit = ({ data: { posts }, isLoading, subreddit }: IProps) => {
   return (
     <>
-      <h1>
+      <Title>
         {`r/${subreddit}`}
-        {isLoading && <Spinner style={{ marginLeft: "0.5em" }} />}
-      </h1>
+        {isLoading && <Spinner size="0.8em" />}
+      </Title>
       {posts.map((post, i) => (
-        <Post key={post.id} post={post} delay={(i + 1) * 50} />
+        <Post key={post.id} post={post} delay={(i + 1) * 40} />
       ))}
     </>
   );

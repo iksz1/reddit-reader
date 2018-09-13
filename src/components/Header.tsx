@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "@reach/router";
+import { Link, LinkGetProps } from "@reach/router";
 import { MdSettings } from "react-icons/md";
 
 const Wrapper = styled.div`
@@ -11,6 +11,7 @@ const Wrapper = styled.div`
 `;
 
 const SettingsLink = styled(Link)`
+  z-index: 1;
   color: inherit;
   text-decoration: none;
   position: absolute;
@@ -21,10 +22,15 @@ const SettingsLink = styled(Link)`
   right: 1em;
 `;
 
+// apply style to active link
+const isActive = ({ isCurrent }: LinkGetProps) => {
+  return isCurrent ? { style: { visibility: "hidden" } } : {};
+};
+
 export default () => {
   return (
     <Wrapper>
-      <SettingsLink to="/settings" aria-label="settings">
+      <SettingsLink to="/settings" aria-label="settings" getProps={isActive}>
         <MdSettings />
       </SettingsLink>
     </Wrapper>

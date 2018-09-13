@@ -25,7 +25,7 @@ const Comments = ({ data, isLoading, postId }: IProps) => {
   return (
     <>
       {mainPost && <MainPost post={mainPost} />}
-      {isLoading && <Spinner size="2em" />}
+      {isLoading && <Spinner size="2em" centered />}
       {comments.map((cmtChunk, i) => (
         <CommentsChunk key={i}>
           {cmtChunk.map(cmt => (
