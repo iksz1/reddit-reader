@@ -49,20 +49,24 @@ export const fetchRequest = (request: IFetchRequest): IFetchRequestAction => ({
 
 interface IFetchSuccessAction extends Action {
   payload: any;
+  meta: IFetchRequest;
 }
 
-export const fetchSuccess = (data: any): IFetchSuccessAction => ({
+export const fetchSuccess = (data: any, meta: IFetchRequest): IFetchSuccessAction => ({
   type: FETCH_SUCCESS,
   payload: data,
+  meta,
 });
 
 interface IFetchFailureAction extends Action {
   payload: Error;
+  meta: IFetchRequest;
 }
 
-export const fetchFailure = (error: Error): IFetchFailureAction => ({
+export const fetchFailure = (error: Error, meta: IFetchRequest): IFetchFailureAction => ({
   type: FETCH_FAILURE,
   payload: error,
+  meta,
 });
 
 export default dataReducer;

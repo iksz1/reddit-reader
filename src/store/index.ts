@@ -1,6 +1,5 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import { fetchMiddleware } from "./middleware/fetchMiddleware";
-import { persistMiddleware } from "./middleware/persistMiddleware";
+import { createStore, compose } from "redux";
+import middleware from "./middleware";
 import reducer from "./ducks";
 import { THEMES, DEFAULT_THEME, DEFAULT_SUBS } from "../constants";
 import { getItem } from "./utils/localStorage";
@@ -17,8 +16,8 @@ const initialStore = {
 };
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const middleware = composeEnhancers(applyMiddleware(fetchMiddleware, persistMiddleware));
+const enhancer = composeEnhancers(middleware);
 
-const store = createStore(reducer, initialStore, middleware);
+const store = createStore(reducer, initialStore, enhancer);
 
 export default store;
