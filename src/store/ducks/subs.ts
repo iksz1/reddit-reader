@@ -1,6 +1,5 @@
 import { Reducer, Action } from "redux";
 
-export const SUBS_LOAD = "SUBS_LOAD";
 export const SUBS_ADD = "SUBS_ADD";
 export const SUBS_REMOVE = "SUBS_REMOVE";
 
@@ -8,8 +7,6 @@ export type Subs = string[];
 
 const subsReducer: Reducer<Subs> = (state = [], { type, payload }) => {
   switch (type) {
-    case SUBS_LOAD:
-      return payload;
     case SUBS_ADD:
       return state.concat(payload);
     case SUBS_REMOVE:
@@ -18,15 +15,6 @@ const subsReducer: Reducer<Subs> = (state = [], { type, payload }) => {
       return state;
   }
 };
-
-interface ILoadSubsAction extends Action {
-  payload: Subs;
-}
-
-export const loadSubs = (subs: Subs): ILoadSubsAction => ({
-  type: SUBS_LOAD,
-  payload: subs,
-});
 
 interface IAddSubAction extends Action {
   payload: string;

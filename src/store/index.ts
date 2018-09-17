@@ -7,7 +7,6 @@ import { getItem } from "./utils/localStorage";
 const themeId = getItem("_theme");
 
 const initialStore = {
-  auth: getItem("_auth", true),
   subs: getItem("_subs", true) || DEFAULT_SUBS,
   view: {
     isSidebarVisible: window.innerWidth >= 720,
