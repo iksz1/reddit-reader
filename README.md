@@ -1,6 +1,6 @@
-# Reddit reader
+# Reddit Reader
 
-Simple reddit client.
+Simple reddit client built for maximum reading comfort.
 
 Demo: [https://reddit-reader.netlify.com/](https://reddit-reader.netlify.com/)
 
@@ -20,4 +20,4 @@ npm install
 
 `npm test` - run Jest
 
-`npm run tsc` - type check
+`npm run tsc` - run type-check
