@@ -6,6 +6,7 @@ import { RouteComponentProps } from "@reach/router";
 import ErrorMessage from "../shared/ErrorMessage";
 
 const mapStateToProps = ({ data }: IAppState) => ({
+  dataId: data.dataId,
   data: data.data,
   isLoading: data.isLoading,
   error: data.error,

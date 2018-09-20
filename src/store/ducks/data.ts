@@ -6,6 +6,7 @@ export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_FAILURE = "FETCH_FAILURE";
 
 export interface IData {
+  dataId?: string;
   data: IParsedData;
   isLoading: boolean;
   error: Error | null;
@@ -20,12 +21,12 @@ const initialState = {
   error: null,
 };
 
-const dataReducer: Reducer<IData> = (state = initialState, { type, payload }) => {
+const dataReducer: Reducer<IData> = (state = initialState, { type, payload, meta }) => {
   switch (type) {
     case FETCH_REQUEST:
       return { ...state, isLoading: true, error: null };
     case FETCH_SUCCESS:
-      return { ...initialState, data: payload };
+      return { ...initialState, data: payload, dataId: meta.uri };
     case FETCH_FAILURE:
       return { ...state, error: payload, isLoading: false };
 

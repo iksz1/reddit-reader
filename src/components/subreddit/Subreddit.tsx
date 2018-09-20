@@ -16,16 +16,15 @@ interface IProps extends IWithFetchingProps {
   subreddit?: string;
 }
 
-const Subreddit = ({ data: { posts }, isLoading, subreddit }: IProps) => {
+const Subreddit = ({ data: { posts }, isLoading, subreddit, dataId, uri }: IProps) => {
   return (
     <>
       <Title>
         {`r/${subreddit}`}
         {isLoading && <Spinner size="0.8em" />}
       </Title>
-      {posts.map((post, i) => (
-        <Post key={post.id} post={post} delay={(i + 1) * 40} />
-      ))}
+      {dataId === uri &&
+        posts.map((post, i) => <Post key={post.id} post={post} delay={(i + 1) * 40} />)}
     </>
   );
 };
