@@ -1,6 +1,6 @@
 import { Reducer, Action } from "redux";
 
-const CACHE_SET = "CACHE_SET";
+export const CACHE_SET = "CACHE_SET";
 
 interface ICacheItem {
   key: string;

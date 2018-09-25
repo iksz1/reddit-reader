@@ -44,19 +44,20 @@ export interface IParsedData {
   meta?: IMeta;
 }
 
-const parser = (data: any): IParsedData => {
-  if (data.data) {
+const parser = (data: any): IParsedData | null => {
+  if (data && data.data) {
     // subreddit data
     const { children, after, before }: IListing<IPost> = data.data;
     const posts = children.map(child => child.data);
     const meta = { after, before };
     return { posts, comments: [], meta };
-  } else {
+  } else if (Array.isArray(data) && data[0].data) {
     // comments data
     const post = data[0].data.children[0].data as IPost;
     const comments = flattenComments(data[1].data.children);
     return { posts: [post], comments };
   }
+  return null;
 };
 
 // normalize comments

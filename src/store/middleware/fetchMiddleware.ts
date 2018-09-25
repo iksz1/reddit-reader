@@ -5,25 +5,20 @@ import { IFetchRequest, fetchSuccess, fetchFailure, FETCH_REQUEST } from "../duc
 const BASE_URL = `https://www.reddit.com`;
 const BASE_PARAMS = `.json?raw_json=1`;
 
-export const fetchMiddleware: Middleware = ({ dispatch }) => next => action => {
+export const fetchMiddleware: Middleware = ({ dispatch }) => next => async action => {
+  next(action);
+
   if (action.type === FETCH_REQUEST) {
     const { uri }: IFetchRequest = action.payload;
     const url = BASE_URL + uri + BASE_PARAMS;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(String(response.status));
 
-    fetch(url)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error(String(response.status));
-      })
-      .then(json => {
-        const data = parser(json);
-        dispatch(fetchSuccess(data, { uri }));
-      })
-      .catch(error => {
-        dispatch(fetchFailure(error, { uri }));
-      });
+      const data = parser(await response.json());
+      dispatch(fetchSuccess(data, { uri }));
+    } catch (error) {
+      dispatch(fetchFailure(error, { uri }));
+    }
   }
-  return next(action);
 };
