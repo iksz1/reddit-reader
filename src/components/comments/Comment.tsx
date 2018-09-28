@@ -47,11 +47,14 @@ export const CommentMeta = styled.div`
   font-size: 1.4rem;
 `;
 
-const CommentAuthor = styled.span`
+const Author = styled.span<{ isSubmitter: boolean }>`
   font-weight: bold;
+  text-decoration: ${p => p.isSubmitter && "underline"};
 `;
 
-const CommentScore = styled.span`
+const AuthorFlair = styled.span``;
+
+const Score = styled.span`
   font-weight: bold;
   margin-right: 0.5em;
   line-height: 1;
@@ -67,8 +70,11 @@ interface IProps {
 const Comment = ({ comment }: IProps) => (
   <Wrapper style={{ marginLeft: comment.depth + "em" }}>
     <CommentMeta>
-      <CommentScore>{comment.score}</CommentScore>
-      <CommentAuthor>{comment.author}</CommentAuthor>
+      <Score>{comment.score}</Score>
+      <Author isSubmitter={comment.is_submitter}>{comment.author}</Author>
+      <AuthorFlair>
+        {comment.author_flair_text ? ` <${comment.author_flair_text}>` : null}
+      </AuthorFlair>
     </CommentMeta>
     <CommentBody dangerouslySetInnerHTML={{ __html: comment.body_html }} />
   </Wrapper>

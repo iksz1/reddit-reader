@@ -24,13 +24,13 @@ export interface IPost {
 
 export interface IComment {
   id: string;
-  title: string;
   author: string;
+  author_flair_text: string | null;
   score: number;
   replies: IResource<IListing<IComment>> | "";
-  url: string;
   body_html: string;
   depth: number;
+  is_submitter: boolean;
 }
 
 interface IMeta {
