@@ -55,7 +55,7 @@ export default ({ subs, onAdd, onRemove }: IProps) => {
         {subs.map(sub => (
           <LI key={sub} value={sub}>
             {sub}
-            <XBtn onClick={() => onRemove(sub)}>
+            <XBtn onClick={() => onRemove(sub)} aria-label="remove subreddit">
               <MdClose />
             </XBtn>
           </LI>

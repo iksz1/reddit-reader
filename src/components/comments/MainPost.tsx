@@ -5,7 +5,6 @@ import { CommentBody, CommentMeta } from "./Comment";
 import timeago from "timeago.js";
 
 const Wrapper = styled.div`
-  position: relative;
   margin: 1em 0;
   font-size: 1.6rem;
   &:not(:last-child) {

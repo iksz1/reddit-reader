@@ -7,7 +7,6 @@ const spin = keyframes`
 
 interface IProps {
   size?: string;
-  centered?: boolean;
 }
 
 export const Spinner = styled.div.attrs<IProps>({
@@ -15,7 +14,6 @@ export const Spinner = styled.div.attrs<IProps>({
 })`
   width: ${p => p.size};
   height: ${p => p.size};
-  margin: ${p => (p.centered ? "0 auto" : 0)};
   border-width: calc(${p => p.size} / 5);
   border-style: solid;
   border-color: ${p => p.theme.primary} transparent;

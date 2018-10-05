@@ -7,9 +7,10 @@ import { Spinner } from "../shared/Spinner";
 const Title = styled.h1`
   display: flex;
   align-items: center;
-  ${Spinner} {
-    margin-left: 0.5em;
-  }
+`;
+
+const StyledSpinner = styled(Spinner)`
+  margin-left: 0.5em;
 `;
 
 interface IProps extends IWithFetchingProps {
@@ -21,7 +22,7 @@ const Subreddit = ({ data: { posts }, isLoading, subreddit, dataId, uri }: IProp
     <>
       <Title>
         {`r/${subreddit}`}
-        {isLoading && <Spinner size="0.8em" />}
+        {isLoading && <StyledSpinner size="0.8em" />}
       </Title>
       {dataId === uri &&
         posts.map((post, i) => <Post key={post.id} post={post} delay={(i + 1) * 40} />)}

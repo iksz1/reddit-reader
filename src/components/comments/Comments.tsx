@@ -14,6 +14,10 @@ const CommentsChunk = styled.div`
   }
 `;
 
+const StyledSpinner = styled(Spinner)`
+  margin: 1em auto;
+`;
+
 interface IProps extends IWithFetchingProps {
   postId?: string;
 }
@@ -25,7 +29,7 @@ const Comments = ({ data, isLoading, postId }: IProps) => {
   return (
     <>
       {mainPost && <MainPost post={mainPost} />}
-      {isLoading && <Spinner size="2em" centered />}
+      {isLoading && <StyledSpinner size="2em" />}
       {comments.map((cmtChunk, i) => (
         <CommentsChunk key={i}>
           {cmtChunk.map(cmt => (
