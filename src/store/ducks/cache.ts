@@ -16,9 +16,9 @@ const cacheReducer: Reducer<Cache> = (state = [], { type, payload }) => {
       const cache = [...state];
       // keep last 5 entries
       if (cache.length === 5) {
-        cache.shift();
+        cache.pop();
       }
-      cache.push({ ...payload, expires: 10 * 60 * 1000 + Date.now() }); // expires in 10 minutes
+      cache.unshift({ ...payload, expires: 10 * 60 * 1000 + Date.now() }); // expires in 10 minutes
       return cache;
     default:
       return state;

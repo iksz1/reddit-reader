@@ -9,7 +9,7 @@ describe("cache reducer", () => {
     expect(state[0].expires).toBeGreaterThan(Date.now());
   });
 
-  it("should shift items to keep 5 only", () => {
+  it("should keep 5 items only", () => {
     const initialState = [
       { key: "1", data: "", expires: 0 },
       { key: "2", data: "", expires: 0 },
@@ -19,7 +19,7 @@ describe("cache reducer", () => {
     ];
     const state = cacheReducer(initialState, setCache("6", ""));
     expect(state).toHaveLength(5);
-    expect(state[0].key).toBe("2");
-    expect(state[4].key).toBe("6");
+    expect(state[0].key).toBe("6");
+    expect(state[4].key).toBe("4");
   });
 });
