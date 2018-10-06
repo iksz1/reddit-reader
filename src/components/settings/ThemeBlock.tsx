@@ -25,7 +25,7 @@ class ThemeBlock extends Component<IProps> {
 
     return (
       <>
-        <Select value={themeId} onChange={this.handleThemeChange}>
+        <Select value={themeId} onChange={this.handleThemeChange} aria-label="select theme">
           {Object.keys(THEMES).map(key => (
             <option key={key} value={key}>
               {THEMES[key].name}

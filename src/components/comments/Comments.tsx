@@ -5,6 +5,11 @@ import Comment from "./Comment";
 import MainPost from "./MainPost";
 import { Spinner } from "../shared/Spinner";
 
+const Title = styled.h1`
+  font-size: 2.4rem;
+  margin: 1em 0 0.2em;
+`;
+
 const CommentsChunk = styled.div`
   font-size: 1.6rem;
   padding: 1em 0;
@@ -28,7 +33,12 @@ const Comments = ({ data, isLoading, postId }: IProps) => {
 
   return (
     <>
-      {mainPost && <MainPost post={mainPost} />}
+      {mainPost && (
+        <>
+          <Title>{mainPost.title}</Title>
+          <MainPost post={mainPost} />
+        </>
+      )}
       {isLoading && <StyledSpinner size="2em" />}
       {comments.map((cmtChunk, i) => (
         <CommentsChunk key={i}>

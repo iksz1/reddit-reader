@@ -5,15 +5,11 @@ import { CommentBody, CommentMeta } from "./Comment";
 import timeago from "timeago.js";
 
 const Wrapper = styled.div`
-  margin: 1em 0;
+  margin-bottom: 1em;
   font-size: 1.6rem;
   &:not(:last-child) {
     border-bottom: 4px solid ${p => p.theme.primary};
   }
-`;
-
-const PostTitle = styled.h2`
-  margin-bottom: 0.2em;
 `;
 
 const ExternalLink = styled.a`
@@ -38,7 +34,6 @@ const MainPost = ({ post }: IProps) => {
 
   return (
     <Wrapper>
-      <PostTitle>{post.title}</PostTitle>
       <PostMeta>
         posted by <strong>{post.author}</strong> {time}
       </PostMeta>

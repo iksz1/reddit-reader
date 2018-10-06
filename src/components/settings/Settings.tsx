@@ -12,9 +12,10 @@ const Block = styled.div`
   max-width: 30rem;
 `;
 
-const BlockLabel = styled.h4`
+const BlockLabel = styled.h2`
   max-width: 30rem;
   margin: 1.5em 0;
+  font-size: 2rem;
   border-bottom: 2px solid ${p => p.theme.primary};
 `;
 
@@ -29,6 +30,7 @@ class Settings extends Component<IProps> {
 
     return (
       <>
+        <h1>Settings</h1>
         <BlockLabel>SUBREDDITS</BlockLabel>
         <Block>
           <SubsBlock subs={subs} onAdd={addSub} onRemove={removeSub} />

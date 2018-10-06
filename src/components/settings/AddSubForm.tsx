@@ -62,6 +62,7 @@ export default class AddSubForm extends Component<IProps, IState> {
             value={inputValue}
             onChange={this.handleChange}
             placeholder="add subreddit"
+            aria-label="add subreddit"
           />
           <Button type="submit" disabled={inputValue ? false : true}>
             Add
