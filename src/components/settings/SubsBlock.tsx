@@ -14,7 +14,9 @@ const List = styled.ul`
 `;
 
 const LI = styled.li`
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 0.5em;
   text-transform: uppercase;
   &:hover {
@@ -24,9 +26,6 @@ const LI = styled.li`
 
 const XBtn = styled.button`
   display: none;
-  position: absolute;
-  top: 0.5em;
-  right: 0.5em;
   padding: 0;
   width: 1em;
   height: 1em;

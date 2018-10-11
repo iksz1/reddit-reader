@@ -16,7 +16,6 @@ const BlockLabel = styled.h2`
   max-width: 30rem;
   margin: 1.5em 0;
   font-size: 2rem;
-  border-bottom: 2px solid ${p => p.theme.primary};
 `;
 
 type PFS = ReturnType<typeof mapStateToProps>;

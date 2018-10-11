@@ -19,13 +19,17 @@ const Input = styled.input`
 
 const Button = styled.button`
   color: ${p => p.theme.bg};
+  min-width: 3rem;
   background: ${p => p.theme.primary};
   border: 1px solid ${p => p.theme.primary};
   border-left: none;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  font-size: 2rem;
   font-family: inherit;
   font-weight: bold;
+  &:disabled {
+    color: ${p => p.theme.primary};
+    background: transparent;
+  }
 `;
 
 interface IProps {
@@ -65,7 +69,7 @@ export default class AddSubForm extends Component<IProps, IState> {
             aria-label="add subreddit"
           />
           <Button type="submit" disabled={inputValue ? false : true}>
-            Add
+            +
           </Button>
         </Form>
       </Wrapper>
