@@ -2,21 +2,38 @@ import React from "react";
 import { hot } from "react-hot-loader";
 import { Router } from "@reach/router";
 import { connect } from "react-redux";
-import styled, { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import Subreddit from "./subreddit/Subreddit";
 import Comments from "./comments/Comments";
 import Sidebar from "./sidebar/Sidebar";
 import Settings from "./settings/Settings";
 import { IAppState } from "../store/ducks";
-import { THEMES } from "../constants";
+import { THEMES, ITheme } from "../constants";
 import Home from "./Home";
 import Header from "./Header";
 
-const Wrapper = styled.div`
-  min-height: 100vh;
-  overflow: hidden;
-  background: ${p => p.theme.bg};
-  color: ${p => p.theme.primary};
+const GlobalStyle = createGlobalStyle<{ theme?: ITheme }>`
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+  html {
+    font-size: 62.5%;
+  }
+  body {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.8rem;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background: ${p => p.theme.bg};
+    color: ${p => p.theme.primary};
+  }
+  :root {
+    --content-width: 72rem;
+    --sidebar-width: 20rem;
+  }
 `;
 
 const MainSection = styled.main`
@@ -30,7 +47,7 @@ type PFS = ReturnType<typeof mapStateToProps>;
 
 const App = ({ themeId }: PFS) => (
   <ThemeProvider theme={THEMES[themeId]}>
-    <Wrapper>
+    <>
       <Header />
       <Sidebar />
       <MainSection>
@@ -41,7 +58,8 @@ const App = ({ themeId }: PFS) => (
           <Settings path="/settings" />
         </Router>
       </MainSection>
-    </Wrapper>
+      <GlobalStyle />
+    </>
   </ThemeProvider>
 );
 
