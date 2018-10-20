@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "webpack-dev-server --mode development --hot --open chrome",
-    "build": "webpack --mode production",
+    "build": "rimraf ./build && webpack --mode production",
     "test": "jest"
   },
   "jest": {
@@ -52,6 +52,7 @@
     "react-hot-loader": "^4.3.11",
     "react-test-renderer": "^16.5.2",
     "redux-mock-store": "^1.5.3",
+    "rimraf": "^2.6.2",
     "sw-precache-webpack-plugin": "^0.11.5",
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",

@@ -2,7 +2,6 @@ const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 //https://webpack.js.org/plugins/html-webpack-plugin/
 const htmlPlugin = new HtmlWebPackPlugin({
@@ -37,11 +36,11 @@ const swPlugin = new SWPrecacheWebpackPlugin({
   },
   minify: true,
   navigateFallback: "/index.html",
-  staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/, /_redirects$/],
+  staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
 });
 
 const manifestPlugin = new WebpackPwaManifest({
-  name: "Reddit client",
+  name: "Reddit Reader",
   short_name: "Reddit",
   description: "Simple reddit client.",
   background_color: "#ffffff",
@@ -51,16 +50,15 @@ const manifestPlugin = new WebpackPwaManifest({
     {
       src: path.resolve("img/reddit.png"),
       sizes: [96, 120, 128, 256, 512],
+      destination: "icons",
     },
   ],
 });
 
-const copyPlugin = new CopyWebpackPlugin([{ from: "./public/_redirects" }]);
-
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
   const plugins = [htmlPlugin];
-  if (isProduction) plugins.push(manifestPlugin, swPlugin, copyPlugin);
+  if (isProduction) plugins.push(manifestPlugin, swPlugin);
 
   return {
     entry: ["./config/polyfills.js", "./src/index.tsx"],
