@@ -32,7 +32,7 @@ const PostTitle = styled(Link)`
 
 const PostMeta = styled.div`
   margin-left: 1em;
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: var(--font-secondary);
   font-size: 1.4rem;
 `;
 

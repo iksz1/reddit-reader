@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Message = styled.h2`
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: var(--font-secondary);
 `;
 
 const Hint = styled.p`

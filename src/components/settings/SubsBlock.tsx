@@ -8,7 +8,7 @@ const List = styled.ul`
   padding: 0.5em;
   overflow-y: auto;
   list-style: none;
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: var(--font-secondary);
   font-size: 1.4rem;
   border: 1px solid ${p => p.theme.primary};
 `;

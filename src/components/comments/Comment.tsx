@@ -43,7 +43,7 @@ export const CommentBody = styled.div`
 
 export const CommentMeta = styled.div`
   margin-bottom: 0.5em;
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: var(--font-secondary);
   font-size: 1.4rem;
 `;
 

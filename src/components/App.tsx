@@ -33,6 +33,7 @@ const GlobalStyle = createGlobalStyle<{ theme?: ITheme }>`
   :root {
     --content-width: 72rem;
     --sidebar-width: 20rem;
+    --font-secondary: "Roboto Condensed", sans-serif;
   }
 `;
 

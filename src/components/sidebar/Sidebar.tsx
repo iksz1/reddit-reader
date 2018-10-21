@@ -19,7 +19,7 @@ const Wrapper = styled.aside<{ isVisible?: boolean }>`
   overflow-y: auto;
   background: ${p => p.theme.primary};
   color: ${p => p.theme.bg};
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: var(--font-secondary);
   text-align: right;
   transition: transform 200ms ease-out;
   transform: translateX(${p => (p.isVisible ? "0" : "calc(var(--sidebar-width) * -1)")});
