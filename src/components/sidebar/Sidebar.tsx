@@ -2,11 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { IAppState } from "../../store/ducks";
-import { Link, LinkGetProps } from "@reach/router";
 import { toggleSidebar } from "../../store/ducks/view";
 import Trigger from "./Trigger";
+import Nav from "./Nav";
 
 const Wrapper = styled.aside<{ isVisible?: boolean }>`
+  visibility: ${p => (p.isVisible ? "visible" : "hidden")};
   position: fixed;
   top: 0;
   left: 0;
@@ -35,31 +36,6 @@ const Wrapper = styled.aside<{ isVisible?: boolean }>`
   }
 `;
 
-const List = styled.ul`
-  padding: 0;
-  overflow-x: hidden;
-  list-style: none;
-  font-weight: bold;
-  font-size: 1.4rem;
-  text-transform: uppercase;
-  li {
-    margin: 0.5em 0;
-  }
-`;
-
-const SLink = styled(Link)`
-  color: inherit;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-// apply style to active link
-const isActive = ({ isCurrent }: LinkGetProps) => {
-  return isCurrent ? { style: { textDecoration: "underline" } } : {};
-};
-
 type PFS = ReturnType<typeof mapStateToProps>;
 type PFD = typeof mapDispatchToProps;
 
@@ -69,15 +45,7 @@ const Sidebar = ({ subs, isVisible, toggleVisibility }: IProps) => (
   <>
     <Trigger onClick={toggleVisibility} isActive={isVisible} />
     <Wrapper isVisible={isVisible} aria-hidden={!isVisible}>
-      <List>
-        {subs.map(sub => (
-          <li key={sub}>
-            <SLink to={`/r/${sub}`} tabIndex={isVisible ? 0 : -1} getProps={isActive}>
-              {sub}
-            </SLink>
-          </li>
-        ))}
-      </List>
+      <Nav subs={subs} />
     </Wrapper>
   </>
 );

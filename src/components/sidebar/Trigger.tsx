@@ -13,7 +13,7 @@ const Wrapper = styled.button<{ isActive?: boolean }>`
   padding: 0;
   font-size: 2rem;
   font-weight: bold;
-  background: ${p => (p.isActive ? "transparent" : "inherit")};
+  background: ${p => (p.isActive ? "transparent" : p.theme.bg)};
   border: none;
   color: ${p => (p.isActive ? p.theme.bg : "inherit")};
   cursor: pointer;
