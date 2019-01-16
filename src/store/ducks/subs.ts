@@ -1,37 +1,33 @@
-import { Reducer, Action } from "redux";
+import { Reducer } from "redux";
+import { createAction } from "../utils/actionHelper";
+import { IAppState } from ".";
 
 export const SUBS_ADD = "SUBS_ADD";
 export const SUBS_REMOVE = "SUBS_REMOVE";
 
-export type Subs = string[];
+export type SubsState = string[];
 
-const subsReducer: Reducer<Subs> = (state = [], { type, payload }) => {
-  switch (type) {
+export type SubsAction = AddSub | RemoveSub;
+
+const subsReducer: Reducer<SubsState, SubsAction> = (state = [], action) => {
+  switch (action.type) {
     case SUBS_ADD:
-      return state.concat(payload);
+      return state.concat(action.payload);
     case SUBS_REMOVE:
-      return state.filter(sub => sub !== payload);
+      return state.filter(sub => sub !== action.payload);
     default:
       return state;
   }
 };
 
-interface IAddSubAction extends Action {
-  payload: string;
-}
+export type AddSub = ReturnType<typeof addSub>;
 
-export const addSub = (sub: string): IAddSubAction => ({
-  type: SUBS_ADD,
-  payload: sub,
-});
+export const addSub = (sub: string) => createAction(SUBS_ADD, sub);
 
-interface IRemoveSubAction extends Action {
-  payload: string;
-}
+export type RemoveSub = ReturnType<typeof removeSub>;
 
-export const removeSub = (sub: string): IRemoveSubAction => ({
-  type: SUBS_REMOVE,
-  payload: sub,
-});
+export const removeSub = (sub: string) => createAction(SUBS_REMOVE, sub);
+
+export const subsSelector = (state: IAppState) => state.subs;
 
 export default subsReducer;

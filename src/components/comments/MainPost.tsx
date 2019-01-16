@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { IPost } from "../../store/utils/responseParser";
+import { IPost } from "../../store/utils/redditAPI";
 import { CommentBody, CommentMeta } from "./Comment";
 import timeago from "timeago.js";
 

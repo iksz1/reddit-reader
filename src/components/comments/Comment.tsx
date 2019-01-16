@@ -1,5 +1,5 @@
 import React from "react";
-import { IComment } from "../../store/utils/responseParser";
+import { IComment } from "../../store/utils/redditAPI";
 import styled from "styled-components";
 import { darken } from "polished";
 
@@ -7,7 +7,6 @@ const Wrapper = styled.div`
   &:not(:last-child) {
     margin-bottom: 1em;
   }
-}
 `;
 
 export const CommentBody = styled.div`

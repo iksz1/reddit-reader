@@ -3,11 +3,12 @@ import { hot } from "react-hot-loader";
 import { Router } from "@reach/router";
 import { connect } from "react-redux";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
-import Subreddit from "./subreddit/Subreddit";
-import Comments from "./comments/Comments";
+import Subreddit from "./subreddit/SubredditContainer";
+import Comments from "./comments/CommentsContainer";
 import Sidebar from "./sidebar/Sidebar";
 import Settings from "./settings/Settings";
 import { IAppState } from "../store/ducks";
+import { themeSelector } from "../store/ducks/view";
 import { THEMES, ITheme } from "../constants";
 import Home from "./Home";
 import Header from "./Header";
@@ -64,8 +65,8 @@ const App = ({ themeId }: PFS) => (
   </ThemeProvider>
 );
 
-const mapStateToProps = ({ view }: IAppState) => ({
-  themeId: view.themeId,
+const mapStateToProps = (state: IAppState) => ({
+  themeId: themeSelector(state),
 });
 
 export default hot(module)(connect(mapStateToProps)(App));

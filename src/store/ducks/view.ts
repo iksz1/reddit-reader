@@ -1,10 +1,12 @@
-import { Reducer, Action } from "redux";
+import { Reducer } from "redux";
+import { createAction } from "../utils/actionHelper";
 import { DEFAULT_THEME } from "../../constants";
+import { IAppState } from ".";
 
 export const VIEW_TOGGLE_SIDEBAR = "VIEW_TOGGLE_SIDEBAR";
 export const VIEW_CHANGE_THEME = "VIEW_CHANGE_THEME";
 
-export interface IView {
+export interface IViewState {
   isSidebarVisible: boolean;
   themeId: string;
 }
@@ -14,29 +16,30 @@ const initialState = {
   themeId: DEFAULT_THEME,
 };
 
-const viewReducer: Reducer<IView> = (state = initialState, { type, payload }) => {
-  switch (type) {
+export type ViewAction = ToggleSidebar | ChangeTheme;
+
+const viewReducer: Reducer<IViewState, ViewAction> = (state = initialState, action) => {
+  switch (action.type) {
     case VIEW_TOGGLE_SIDEBAR:
       return { ...state, isSidebarVisible: !state.isSidebarVisible };
     case VIEW_CHANGE_THEME:
-      return { ...state, themeId: payload };
+      return { ...state, themeId: action.payload };
 
     default:
       return state;
   }
 };
 
-export const toggleSidebar = (): Action => ({
-  type: VIEW_TOGGLE_SIDEBAR,
-});
+export type ToggleSidebar = ReturnType<typeof toggleSidebar>;
 
-interface IChangeThemeAction extends Action {
-  payload: string;
-}
+export const toggleSidebar = () => createAction(VIEW_TOGGLE_SIDEBAR);
 
-export const changeTheme = (themeName: string): IChangeThemeAction => ({
-  type: VIEW_CHANGE_THEME,
-  payload: themeName,
-});
+export type ChangeTheme = ReturnType<typeof changeTheme>;
+
+export const changeTheme = (themeName: string) => createAction(VIEW_CHANGE_THEME, themeName);
+
+export const sidebarSelector = (state: IAppState) => state.view.isSidebarVisible;
+
+export const themeSelector = (state: IAppState) => state.view.themeId;
 
 export default viewReducer;

@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { IAppState } from "../../store/ducks";
 import { RouteComponentProps } from "@reach/router";
-import { addSub, removeSub } from "../../store/ducks/subs";
-import { changeTheme } from "../../store/ducks/view";
+import { addSub, removeSub, subsSelector } from "../../store/ducks/subs";
+import { changeTheme, themeSelector } from "../../store/ducks/view";
 import SubsBlock from "./SubsBlock";
 import ThemeBlock from "./ThemeBlock";
 
@@ -43,9 +43,9 @@ class Settings extends Component<IProps> {
   }
 }
 
-const mapStateToProps = ({ subs, view }: IAppState) => ({
-  subs,
-  themeId: view.themeId,
+const mapStateToProps = (state: IAppState) => ({
+  subs: subsSelector(state),
+  themeId: themeSelector(state),
 });
 
 const mapDispatchToProps = {

@@ -2,9 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { IAppState } from "../../store/ducks";
-import { toggleSidebar } from "../../store/ducks/view";
+import { toggleSidebar, sidebarSelector } from "../../store/ducks/view";
 import Trigger from "./Trigger";
 import Nav from "./Nav";
+import { subsSelector } from "../../store/ducks/subs";
 
 const Wrapper = styled.aside<{ isVisible?: boolean }>`
   visibility: ${p => (p.isVisible ? "visible" : "hidden")};
@@ -50,9 +51,9 @@ const Sidebar = ({ subs, isVisible, toggleVisibility }: IProps) => (
   </>
 );
 
-const mapStateToProps = ({ subs, view }: IAppState) => ({
-  subs,
-  isVisible: view.isSidebarVisible,
+const mapStateToProps = (state: IAppState) => ({
+  subs: subsSelector(state),
+  isVisible: sidebarSelector(state),
 });
 
 const mapDispatchToProps = {

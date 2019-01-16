@@ -1,6 +1,5 @@
-import { applyMiddleware } from "redux";
-import { cacheMiddleware } from "./cacheMiddleware";
-import { fetchMiddleware } from "./fetchMiddleware";
+import { cachingMiddleware } from "./cachingMiddleware";
+import { fetchingMiddleware } from "./fetchingMiddleware";
 import { persistMiddleware } from "./persistMiddleware";
 
-export default applyMiddleware(cacheMiddleware, fetchMiddleware, persistMiddleware);
+export { cachingMiddleware, fetchingMiddleware, persistMiddleware };

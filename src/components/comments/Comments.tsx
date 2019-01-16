@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
-import { withFetching, IWithFetchingProps } from "../hoc/withFetching";
 import Comment from "./Comment";
 import MainPost from "./MainPost";
 import { Spinner } from "../shared/Spinner";
+import ErrorMessage from "../shared/ErrorMessage";
+import { ICommentsProps } from "./CommentsContainer";
+import { IComment, IMoreComments } from "../../store/utils/redditAPI";
 
 const Title = styled.h1`
   font-size: 2.4rem;
@@ -23,32 +25,39 @@ const StyledSpinner = styled(Spinner)`
   margin: 1em auto;
 `;
 
-interface IProps extends IWithFetchingProps {
-  postId?: string;
+class Comments extends Component<ICommentsProps> {
+  componentDidMount() {
+    const { subreddit, postId, commentsFetch } = this.props;
+    commentsFetch({ subreddit: subreddit!, postId: postId! });
+  }
+
+  render() {
+    const { post, comments, isLoading, error, commentsFetchMore, postId } = this.props;
+
+    return (
+      <>
+        {post && (
+          <>
+            <Title>{post.title}</Title>
+            <MainPost post={post} />
+          </>
+        )}
+        {isLoading && <StyledSpinner size="2em" />}
+        {comments &&
+          comments.map(cmt =>
+            cmt.kind === "t1" ? (
+              <Comment key={cmt.data.id} comment={cmt.data as IComment} />
+            ) : cmt.data.id === "_" ? null : (
+              <div key={cmt.data.id} style={{ marginLeft: cmt.data.depth + "em" }}>
+                <button onClick={() => commentsFetchMore(postId!, cmt.data as IMoreComments)}>
+                  LOAD MORE ({(cmt.data as IMoreComments).count})
+                </button>
+              </div>
+            )
+          )}
+        {error && <ErrorMessage message={error.message} />}
+      </>
+    );
+  }
 }
-
-const Comments = ({ data, isLoading, postId }: IProps) => {
-  const { posts, comments } = data;
-  const mainPost = posts.find(post => post.id === postId);
-
-  return (
-    <>
-      {mainPost && (
-        <>
-          <Title>{mainPost.title}</Title>
-          <MainPost post={mainPost} />
-        </>
-      )}
-      {isLoading && <StyledSpinner size="2em" />}
-      {comments.map((cmtChunk, i) => (
-        <CommentsChunk key={i}>
-          {cmtChunk.map(cmt => (
-            <Comment key={cmt.id} comment={cmt} />
-          ))}
-        </CommentsChunk>
-      ))}
-    </>
-  );
-};
-
-export default withFetching(Comments);
+export default Comments;
