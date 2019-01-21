@@ -20,7 +20,7 @@ interface IParams {
   query?: string;
 }
 
-type RawPosts = IResource<IListing<IPost>>;
+type RawPosts = IListingRes<IPostRes>;
 
 const getPosts = async ({ subreddit, query }: IParams): Promise<IParsedPosts> => {
   const url = `${BASE_URL}/r/${subreddit}/.json${queryBuilder(query)}`;
@@ -30,7 +30,7 @@ const getPosts = async ({ subreddit, query }: IParams): Promise<IParsedPosts> =>
   return { data: posts, meta: { after, before } };
 };
 
-type RawComments = [IResource<IListing<IPost>>, IResource<IListing<IComment>>];
+type RawComments = [IListingRes<IPostRes>, IListingRes<ICommentRes>];
 
 const getComments = async ({ subreddit, postId, query }: IParams): Promise<IParsedComments> => {
   const url = `${BASE_URL}/r/${subreddit}/comments/${postId}/.json${queryBuilder(query)}`;
@@ -65,15 +65,28 @@ const getMoreComments = async ({
   };
 };
 
-interface IResource<T> {
-  kind: string;
-  data: T;
+interface IListingRes<T> {
+  kind: "Listing";
+  data: {
+    children: T[];
+    after: string | null;
+    before: string | null;
+  };
 }
 
-interface IListing<T> {
-  children: IResource<T>[];
-  after: string | null;
-  before: string | null;
+interface IPostRes {
+  kind: "t3";
+  data: IPost;
+}
+
+interface ICommentRes {
+  kind: "t1";
+  data: IComment;
+}
+
+interface IMoreCommentsRes {
+  kind: "more";
+  data: IMoreComments;
 }
 
 export interface IPost {
@@ -94,7 +107,7 @@ export interface IComment {
   author: string;
   author_flair_text: string | null;
   score: number;
-  replies: IResource<IListing<IComment>> | "";
+  replies: IListingRes<ICommentRes> | "";
   body_html: string;
   depth: number;
   is_submitter: boolean;
@@ -129,7 +142,7 @@ export interface IParsedMoreComments {
   meta: { moreId: string };
 }
 
-export type CommentOrMore = IResource<IComment> | IResource<IMoreComments>;
+export type CommentOrMore = ICommentRes | IMoreCommentsRes;
 
 // normalize comments
 const flattenComments = (children: CommentOrMore[]): CommentOrMore[] => {
@@ -137,9 +150,7 @@ const flattenComments = (children: CommentOrMore[]): CommentOrMore[] => {
     if (child.kind === "t1") {
       return result.concat(
         child,
-        flattenComments(
-          (child.data as IComment).replies ? (child.data as IComment).replies.data.children : []
-        )
+        flattenComments(child.data.replies ? child.data.replies.data.children : [])
       );
     } else {
       return result.concat(child);

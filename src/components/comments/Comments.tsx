@@ -5,7 +5,6 @@ import MainPost from "./MainPost";
 import { Spinner } from "../shared/Spinner";
 import ErrorMessage from "../shared/ErrorMessage";
 import { ICommentsProps } from "./CommentsContainer";
-import { IComment, IMoreComments } from "../../store/utils/redditAPI";
 
 const Title = styled.h1`
   font-size: 2.4rem;
@@ -46,11 +45,11 @@ class Comments extends Component<ICommentsProps> {
         {comments &&
           comments.map(cmt =>
             cmt.kind === "t1" ? (
-              <Comment key={cmt.data.id} comment={cmt.data as IComment} />
+              <Comment key={cmt.data.id} comment={cmt.data} />
             ) : cmt.data.id === "_" ? null : (
               <div key={cmt.data.id} style={{ marginLeft: cmt.data.depth + "em" }}>
-                <button onClick={() => commentsFetchMore(postId!, cmt.data as IMoreComments)}>
-                  LOAD MORE ({(cmt.data as IMoreComments).count})
+                <button onClick={() => commentsFetchMore(postId!, cmt.data)}>
+                  LOAD MORE ({cmt.data.count})
                 </button>
               </div>
             )

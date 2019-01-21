@@ -9,9 +9,9 @@ interface IProps {
   size?: string;
 }
 
-export const Spinner = styled.div.attrs<IProps>({
-  size: (p: IProps) => p.size || "1em",
-})`
+export const Spinner = styled.div.attrs((p: IProps) => ({
+  size: p.size || "1em",
+}))`
   width: ${p => p.size};
   height: ${p => p.size};
   border-width: calc(${p => p.size} / 5);
