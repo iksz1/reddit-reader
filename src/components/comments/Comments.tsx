@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Comment from "./Comment";
 import MainPost from "./MainPost";
+import { LoadMore } from "./LoadMore";
 import { Spinner } from "../shared/Spinner";
 import ErrorMessage from "../shared/ErrorMessage";
 import { ICommentsProps } from "./CommentsContainer";
@@ -46,12 +47,12 @@ class Comments extends Component<ICommentsProps> {
           comments.map(cmt =>
             cmt.kind === "t1" ? (
               <Comment key={cmt.data.id} comment={cmt.data} />
-            ) : cmt.data.id === "_" ? null : (
-              <div key={cmt.data.id} style={{ marginLeft: cmt.data.depth + "em" }}>
-                <button onClick={() => commentsFetchMore(postId!, cmt.data)}>
-                  LOAD MORE ({cmt.data.count})
-                </button>
-              </div>
+            ) : (
+              <LoadMore
+                key={cmt.data.id}
+                data={cmt.data}
+                handler={() => commentsFetchMore(postId!, cmt.data)}
+              />
             )
           )}
         {error && <ErrorMessage message={error.message} />}

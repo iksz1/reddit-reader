@@ -7,17 +7,17 @@ import timeago from "timeago.js";
 const appear = keyframes`
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: scale(0.8) translateX(-20px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateX(0);
   }
 `;
 
 const Wrapper = styled.div`
   margin: 1.5em 0;
-  animation: ${appear} 200ms ease backwards;
+  animation: ${appear} 200ms ease-out;
 `;
 
 const PostTitle = styled(Link)`
@@ -38,14 +38,13 @@ const PostMeta = styled.div`
 
 interface IProps {
   post: IPost;
-  delay: number;
 }
 
-const Post = ({ post, delay }: IProps) => {
+const Post = ({ post }: IProps) => {
   const time = timeago().format(post.created_utc * 1000);
 
   return (
-    <Wrapper style={{ animationDelay: delay + "ms" }}>
+    <Wrapper>
       <PostTitle to={post.permalink}>{post.title}</PostTitle>
       <PostMeta>
         <b>{post.score}</b> points | posted {time} by {post.author} | <b>{post.num_comments}</b>{" "}

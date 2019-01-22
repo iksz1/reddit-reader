@@ -4,6 +4,7 @@ import Post from "./Post";
 import { Spinner } from "../shared/Spinner";
 import { ISubredditProps } from "./SubredditContainer";
 import ErrorMessage from "../shared/ErrorMessage";
+import { LoadMore } from "./LoadMore";
 
 const Title = styled.h1`
   display: flex;
@@ -44,14 +45,10 @@ class Subreddit extends Component<ISubredditProps> {
           {`r/${subreddit}`}
           {isLoading && <StyledSpinner size="0.8em" />}
         </Title>
-        {posts.map((post, i) => (
-          <Post key={post.id} post={post} delay={(i + 1) * 40} />
+        {posts.map(post => (
+          <Post key={post.id} post={post} />
         ))}
-        {isLoading ? (
-          <StyledSpinner size="0.8em" />
-        ) : (
-          <button onClick={this.getMorePosts}>...</button>
-        )}
+        {isLoading ? <StyledSpinner size="0.8em" /> : <LoadMore handler={this.getMorePosts} />}
         {error && <ErrorMessage message={error.message} />}
       </>
     );
