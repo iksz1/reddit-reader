@@ -4,6 +4,7 @@ import Comment from "./Comment";
 import MainPost from "./MainPost";
 import { LoadMore } from "./LoadMore";
 import { Spinner } from "../shared/Spinner";
+import LazyScroll from "./LazyScroll";
 import ErrorMessage from "../shared/ErrorMessage";
 import { ICommentsProps } from "./CommentsContainer";
 
@@ -43,18 +44,20 @@ class Comments extends Component<ICommentsProps> {
           </>
         )}
         {isLoading && <StyledSpinner size="2em" />}
-        {comments &&
-          comments.map(cmt =>
-            cmt.kind === "t1" ? (
-              <Comment key={cmt.data.id} comment={cmt.data} />
-            ) : (
-              <LoadMore
-                key={cmt.data.id}
-                data={cmt.data}
-                handler={() => commentsFetchMore(postId!, cmt.data)}
-              />
-            )
-          )}
+        <LazyScroll>
+          {comments &&
+            comments.map(cmt =>
+              cmt.kind === "t1" ? (
+                <Comment key={cmt.data.id} comment={cmt.data} />
+              ) : (
+                <LoadMore
+                  key={cmt.data.id}
+                  data={cmt.data}
+                  handler={() => commentsFetchMore(postId!, cmt.data)}
+                />
+              )
+            )}
+        </LazyScroll>
         {error && <ErrorMessage message={error.message} />}
       </>
     );

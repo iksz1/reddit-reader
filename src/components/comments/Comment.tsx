@@ -79,4 +79,4 @@ const Comment = ({ comment }: IProps) => (
   </Wrapper>
 );
 
-export default Comment;
+export default React.memo(Comment);
