@@ -35,10 +35,10 @@ const postsReducer: Reducer<IPostsState, PostsAction> = (state = initialState, a
       return { ...initialState, ...action.payload };
     case POSTS_APPEND:
       return {
-        ...state,
         ...action.payload,
-        isLoading: false,
         data: [...state.data, ...action.payload.data],
+        isLoading: false,
+        error: null,
       };
     case POSTS_ERROR:
       return { ...state, isLoading: false, error: action.payload };
