@@ -48,7 +48,7 @@ class Subreddit extends Component<ISubredditProps> {
         {posts.map(post => (
           <Post key={post.id} post={post} />
         ))}
-        {isLoading ? <StyledSpinner size="0.8em" /> : <LoadMore handler={this.getMorePosts} />}
+        {!isLoading && <LoadMore handler={this.getMorePosts} />}
         {error && <ErrorMessage message={error.message} />}
       </>
     );

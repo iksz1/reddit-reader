@@ -23,18 +23,21 @@ export interface IPostsState extends IParsedPosts {
   stamp?: IStamp;
 }
 
-export type PostsAction = PostsFetch | PostsReplace | PostsAppend | PostsError;
+export type PostsAction = PostsFetch | PostsFetchMore | PostsReplace | PostsAppend | PostsError;
 
 const postsReducer: Reducer<IPostsState, PostsAction> = (state = initialState, action) => {
   switch (action.type) {
     case POSTS_FETCH:
       return { ...initialState, isLoading: true };
+    case POSTS_FETCH_MORE:
+      return { ...state, isLoading: true };
     case POSTS_REPLACE:
       return { ...initialState, ...action.payload };
     case POSTS_APPEND:
       return {
         ...state,
         ...action.payload,
+        isLoading: false,
         data: [...state.data, ...action.payload.data],
       };
     case POSTS_ERROR:
