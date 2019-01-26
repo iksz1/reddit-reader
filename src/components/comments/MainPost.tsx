@@ -4,12 +4,17 @@ import { IPost } from "../../store/utils/redditAPI";
 import { CommentBody, CommentMeta } from "./Comment";
 import timeago from "timeago.js";
 
-const Wrapper = styled.div`
+const Wrapper = styled.article`
   margin-bottom: 1em;
   font-size: 1.6rem;
   &:not(:last-child) {
     border-bottom: 4px solid ${p => p.theme.primary};
   }
+`;
+
+const Title = styled.h1`
+  font-size: 2.4rem;
+  margin: 1em 0 0.2em;
 `;
 
 const ExternalLink = styled.a`
@@ -34,6 +39,7 @@ const MainPost = ({ post }: IProps) => {
 
   return (
     <Wrapper>
+      <Title>{post.title}</Title>
       <PostMeta>
         posted by <strong>{post.author}</strong> {time}
       </PostMeta>

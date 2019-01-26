@@ -1,12 +1,21 @@
 import React from "react";
 import { IComment } from "../../store/utils/redditAPI";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { darken } from "polished";
 
-const Wrapper = styled.div`
-  &:not(:last-child) {
-    margin-bottom: 1em;
-  }
+const Wrapper = styled.div<{ root: boolean }>`
+  font-size: 1.6rem;
+  margin-bottom: 1em;
+  ${p =>
+    p.root
+      ? css`
+          margin-top: 2em;
+          &:not(:first-of-type) {
+            padding-top: 2em;
+            border-top: 1px solid ${p.theme.primary};
+          }
+        `
+      : null}
 `;
 
 export const CommentBody = styled.div`
@@ -67,7 +76,7 @@ interface IProps {
 }
 
 const Comment = ({ comment }: IProps) => (
-  <Wrapper style={{ marginLeft: comment.depth + "em" }}>
+  <Wrapper style={{ marginLeft: comment.depth + "em" }} root={comment.depth === 0}>
     <CommentMeta>
       <Score>{comment.score}</Score>
       <Author isSubmitter={comment.is_submitter}>{comment.author}</Author>

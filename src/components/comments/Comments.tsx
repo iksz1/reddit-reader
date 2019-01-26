@@ -8,20 +8,6 @@ import LazyScroll from "./LazyScroll";
 import ErrorMessage from "../shared/ErrorMessage";
 import { ICommentsProps } from "./CommentsContainer";
 
-const Title = styled.h1`
-  font-size: 2.4rem;
-  margin: 1em 0 0.2em;
-`;
-
-const CommentsChunk = styled.div`
-  font-size: 1.6rem;
-  padding: 1em 0;
-  &:not(:last-child) {
-    border-bottom: 1px solid ${p => p.theme.primary};
-    margin-bottom: 1em;
-  }
-`;
-
 const StyledSpinner = styled(Spinner)`
   margin: 1em auto;
 `;
@@ -37,12 +23,7 @@ class Comments extends Component<ICommentsProps> {
 
     return (
       <>
-        {post && (
-          <>
-            <Title>{post.title}</Title>
-            <MainPost post={post} />
-          </>
-        )}
+        {post && <MainPost post={post} />}
         {isLoading && <StyledSpinner size="2em" />}
         <LazyScroll>
           {comments &&
