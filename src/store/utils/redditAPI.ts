@@ -60,7 +60,7 @@ const getMoreComments = async ({
   const url = `${BASE_URL}/api/morechildren/.json${queryBuilder(query)}`;
   const data = (await fetchData(url)) as IRawMoreComments;
   return {
-    data: data.json.data.things, // flat?
+    data: data.json.data.things,
     meta: { moreId: more.id },
   };
 };

@@ -10,5 +10,3 @@ export function createAction<T extends string, P>(type: T, payload?: P) {
   if (payload) return { type, payload };
   return { type };
 }
-
-// export type Optional<T> = { [P in keyof T]?: T[P] };

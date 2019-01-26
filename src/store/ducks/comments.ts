@@ -38,7 +38,6 @@ const commentsReducer: Reducer<ICommentsState, CommentsAction> = (state = initia
       if (state.data[0] && state.data[1]) {
         const id = state.data[1].findIndex(item => item.data.id === action.payload.meta.moreId);
         if (id >= 0) {
-          // const data: IParsedComments["data"] = [{ ...state.data[0] }, [...state.data[1]]];
           const data: IParsedComments["data"] = [{ ...state.data[0] }, [...state.data[1]]];
           data[1].splice(id, 1, ...action.payload.data);
           return { ...state, data };

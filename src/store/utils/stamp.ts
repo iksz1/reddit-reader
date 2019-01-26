@@ -14,5 +14,5 @@ export const createStamp = ({ subreddit, postId }: IParams, validFor = 10): ISta
 };
 
 export const validateStamp = (stamp: IStamp, params: IParams): boolean => {
-  return stamp.expires > Date.now() && stamp.key === createStamp(params).key ? true : false;
+  return stamp.expires > Date.now() && stamp.key === createStamp(params).key;
 };
