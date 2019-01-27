@@ -74,17 +74,17 @@ interface IListingRes<T> {
   };
 }
 
-interface IPostRes {
+export interface IPostRes {
   kind: "t3";
   data: IPost;
 }
 
-interface ICommentRes {
+export interface ICommentRes {
   kind: "t1";
   data: IComment;
 }
 
-interface IMoreCommentsRes {
+export interface IMoreCommentsRes {
   kind: "more";
   data: IMoreComments;
 }
