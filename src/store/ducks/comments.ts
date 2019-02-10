@@ -12,15 +12,13 @@ export const COMMENTS_ERROR = "COMMENTS_ERROR";
 export const LOG_ERROR = "LOG_ERROR";
 
 const initialState = {
-  data: [],
+  data: [[], []] as IParsedComments["data"],
   meta: {},
   isLoading: false,
   error: null,
 };
 
-export interface ICommentsState {
-  data: IParsedComments["data"] | undefined[];
-  meta: IParsedComments["meta"];
+export interface ICommentsState extends IParsedComments {
   isLoading: boolean;
   error: Error | null;
   stamp?: IStamp; // helps to identify stale data
@@ -34,16 +32,15 @@ const commentsReducer: Reducer<ICommentsState, CommentsAction> = (state = initia
       return { ...initialState, isLoading: true };
     case COMMENTS_REPLACE:
       return { ...initialState, ...action.payload };
-    case COMMENTS_ADD:
-      if (state.data[0] && state.data[1]) {
-        const id = state.data[1].findIndex(item => item.data.id === action.payload.meta.moreId);
-        if (id >= 0) {
-          const data: IParsedComments["data"] = [{ ...state.data[0] }, [...state.data[1]]];
-          data[1].splice(id, 1, ...action.payload.data);
-          return { ...state, data };
-        }
+    case COMMENTS_ADD: {
+      const id = state.data[1].findIndex(item => item.data.id === action.payload.meta.moreId);
+      if (id >= 0) {
+        const comments = [...state.data[1]];
+        comments.splice(id, 1, ...action.payload.data);
+        return { ...state, data: [state.data[0], comments] };
       }
       return state;
+    }
     case COMMENTS_ERROR:
       return { ...state, isLoading: false, error: action.payload };
 
@@ -83,8 +80,8 @@ export const commentsError = (error: Error) => createAction(COMMENTS_ERROR, erro
 export const logError = (error: Error) => createAction(LOG_ERROR, error);
 
 export const postDataSelector = (state: IAppState, id: string) => {
-  return state.thread.comments.data[0]
-    ? state.thread.comments.data[0]
+  return state.thread.comments.data[0][0]
+    ? state.thread.comments.data[0][0]
     : state.subreddit.posts.data.find(post => post.id === id);
 };
 

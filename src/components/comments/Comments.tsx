@@ -26,18 +26,17 @@ class Comments extends Component<ICommentsProps> {
         {post && <MainPost post={post} />}
         {isLoading && <StyledSpinner size="2em" />}
         <LazyScroll>
-          {comments &&
-            comments.map(cmt =>
-              cmt.kind === "t1" ? (
-                <Comment key={cmt.data.id} comment={cmt.data} />
-              ) : (
-                <LoadMore
-                  key={cmt.data.id}
-                  data={cmt.data}
-                  handler={() => commentsFetchMore(postId!, cmt.data)}
-                />
-              )
-            )}
+          {comments.map(cmt =>
+            cmt.kind === "t1" ? (
+              <Comment key={cmt.data.id} comment={cmt.data} />
+            ) : (
+              <LoadMore
+                key={cmt.data.id}
+                data={cmt.data}
+                handler={() => commentsFetchMore(postId!, cmt.data)}
+              />
+            )
+          )}
         </LazyScroll>
         {error && <ErrorMessage message={error.message} />}
       </>

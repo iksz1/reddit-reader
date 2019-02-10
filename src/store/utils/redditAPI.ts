@@ -35,10 +35,10 @@ type RawComments = [IListingRes<IPostRes>, IListingRes<ICommentRes>];
 const getComments = async ({ subreddit, postId, query }: IParams): Promise<IParsedComments> => {
   const url = `${BASE_URL}/r/${subreddit}/comments/${postId}/.json${queryBuilder(query)}`;
   const data = (await fetchData(url)) as RawComments;
-  const post = data[0].data.children[0].data;
+  const posts = [data[0].data.children[0].data];
   const { children, after, before } = data[1].data;
   const comments = flattenComments(children);
-  return { data: [post, comments], meta: { after, before } };
+  return { data: [posts, comments], meta: { after, before } };
 };
 
 interface IRawMoreComments {
@@ -133,7 +133,7 @@ export interface IParsedPosts {
 }
 
 export interface IParsedComments {
-  data: [IPost, CommentOrMore[]];
+  data: [IPost[], CommentOrMore[]];
   meta: IMeta;
 }
 

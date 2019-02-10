@@ -53,7 +53,7 @@ describe("comments reducer", () => {
     expect(
       commentsReducer(undefined, commentsFetch({ subreddit: "reactjs", postId: "abc" }))
     ).toEqual({
-      data: [],
+      data: [[], []],
       meta: {},
       isLoading: true,
       error: null,
@@ -61,7 +61,7 @@ describe("comments reducer", () => {
   });
 
   it("should handle COMMENTS_REPLACE", () => {
-    const data: IParsedComments = { data: [mockPost, [mockComment]], meta: {} };
+    const data: IParsedComments = { data: [[mockPost], [mockComment]], meta: {} };
     const stamp = createStamp({ subreddit: "reactjs", postId: "abc" });
     expect(commentsReducer(undefined, commentsReplace(data, stamp))).toEqual({
       ...data,
@@ -72,7 +72,7 @@ describe("comments reducer", () => {
   });
 
   it("should handle COMMENTS_ADD", () => {
-    const data: IParsedComments["data"] = [mockPost, [mockComment, mockMoreComments]];
+    const data: IParsedComments["data"] = [[mockPost], [mockComment, mockMoreComments]];
     const initialState = {
       data,
       meta: {},
@@ -82,7 +82,7 @@ describe("comments reducer", () => {
     expect(
       commentsReducer(initialState, commentsAdd({ data: [mockCommentTwo], meta: { moreId: "2" } }))
     ).toEqual({
-      data: [mockPost, [mockComment, mockCommentTwo]],
+      data: [[mockPost], [mockComment, mockCommentTwo]],
       meta: {},
       isLoading: false,
       error: null,
@@ -92,7 +92,7 @@ describe("comments reducer", () => {
   it("should handle COMMENTS_ERROR", () => {
     const error = new Error();
     expect(commentsReducer(undefined, commentsError(error))).toEqual({
-      data: [],
+      data: [[], []],
       meta: {},
       isLoading: false,
       error,
